@@ -9,7 +9,7 @@
 			        <header class="post-header">
             <a class="blog-logo" href="{{ .Site.BaseUrl }}">
                 {{ if .Site.Params.logo }}
-                  <img src="{{ .Site.BaseUrl }}{{ .Site.Params.logo }}" alt="Blog Logo" />
+                  <img src="/{{ .Site.Params.logo }}" alt="Blog Logo" />
                 {{else}}
                   <span class="blog-title">{{.Site.Title}}</span>
                 {{end}}
@@ -21,7 +21,7 @@
 			{{ range where .Data.Pages "Section" "post" }}
 				<div class="post">
 		              <span class="post-date">{{ .Date.Format "02/01/2006" }}</span> &bull;
-		              <a href="{{ .Site.BaseUrl }}{{ .RelPermalink }}">{{ .Title }}</a>
+		              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
 		        </div>
 			{{ end }}
 		

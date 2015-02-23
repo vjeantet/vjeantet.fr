@@ -6,6 +6,10 @@ threadsafe: no
 
 handlers:
 
+- url: /tags/(.*)
+  static_files: tags/\1/index.html
+  upload: tags/.*
+
 - url: /(.*)/
   static_files: \1/index.html
   upload: (.*)/index.html

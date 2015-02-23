@@ -7,9 +7,9 @@
 			{{ end }}
 			{{end}}
             </span>
-            <h2 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>{{ .Summary }}&hellip; <a class="read-more" href="{{ .Permalink }}">&raquo;</a></p>
+            <p>{{ .Summary }}&hellip; <a class="read-more" href="{{ .RelPermalink }}">&raquo;</a></p>
         </section>
     </article>

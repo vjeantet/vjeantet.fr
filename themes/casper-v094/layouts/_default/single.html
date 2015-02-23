@@ -10,7 +10,7 @@
         <header class="post-header">
             <a class="blog-logo" href="{{ .Site.BaseUrl }}">
                 {{ if .Site.Params.logo }}
-                  <img src="{{ .Site.BaseUrl }}{{ .Site.Params.logo }}" alt="Blog Logo" />
+                  <img src="/{{ .Site.Params.logo }}" alt="Blog Logo" />
                 {{else}}
                   <span class="blog-title">{{.Site.Title}}</span>
                 {{end}}
@@ -39,7 +39,7 @@
             
             
             <section class="author">
-                <h4><a href="{{ .Permalink }}">{{ .Site.Params.author }}</a></h4>
+                <h4><a href="{{ .RelPermalink }}">{{ .Site.Params.author }}</a></h4>
                 {{if .Site.Params.bio}}
                     <p>{{ .Site.Params.bio }}</p>
                 {{else}}

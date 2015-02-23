@@ -1,9 +1,9 @@
 {{ partial "header.html" . }}
-<header class="site-head" {{ if .Site.Params.cover }}style="background-image: url({{ .Site.BaseUrl }}{{.Site.Params.cover}})"{{end}}>
+<header class="site-head" {{ if .Site.Params.cover }}style="background-image: url(/{{.Site.Params.cover}})"{{end}}>
     <div class="vertical">
         <div class="site-head-content inner">
             {{ if .Site.Params.logo }}
-            <a class="blog-logo" href="{{ .Permalink }}"><img src="{{ .Site.BaseUrl }}{{ .Site.Params.logo }}" alt="Blog Logo" /></a>
+            <a class="blog-logo" href="{{ .Permalink }}"><img src="/{{ .Site.Params.logo }}" alt="Blog Logo" /></a>
             {{end}}
             <h1 class="blog-title">{{ .Site.Title }}</h1>
             <h2 class="blog-description">{{ .Site.Params.description }}</h2>
