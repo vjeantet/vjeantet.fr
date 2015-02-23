@@ -3,7 +3,7 @@ date = "2007-11-02T18:14:00+01:00"
 draft = false
 title = "Métro rigolo comico musicalo boulot"
 slug = "metro-rigolo-comico-musicalo-boulot"
-
+tags = ["c'est dit"]
 +++
 
 8h00, ma pièce de théâtre commence.

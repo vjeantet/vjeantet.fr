@@ -3,7 +3,7 @@ date = "2006-08-30T03:45:00+02:00"
 draft = false
 title = "80 la minute."
 slug = "80-la-minute"
-
+tags = ["c'est dit"]
 +++
 
 **J'aimerais avoir le temps d'avoir le temps.**

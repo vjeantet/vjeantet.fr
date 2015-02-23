@@ -3,7 +3,7 @@ date = "2014-02-03T22:47:19+01:00"
 draft = false
 title = "dotclear, wordpress, ghost !"
 slug = "et-on-repart"
-
+tags = ["blog"]
 +++
 
 10 années que le blog existe, 6 ans que je n'ai pas "blogué" --- (effet Twitter ?)

@@ -3,7 +3,7 @@ date = "2014-05-17T18:03:35+02:00"
 draft = false
 title = "OsX, you're talking to me ?"
 slug = "osx-youre-talking-to-me"
-
+tags = ["tools"]
 +++
 
 Just found a fun command on Mac Os X, named as "say".

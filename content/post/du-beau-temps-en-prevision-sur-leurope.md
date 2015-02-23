@@ -3,7 +3,7 @@ date = "2008-05-30T12:00:00+02:00"
 draft = false
 title = "Du beau temps en prévision sur l'europe."
 slug = "du-beau-temps-en-prevision-sur-leurope"
-
+tags = ["c'est lu"]
 +++
 
 En se trompant d'élection les Français ont choisi de faire confiance aux messieurs météo, plutôt que d'approuver un projet, ou d'en apporter un autre, la France choisit le non "d'espoir" des extrêmes.

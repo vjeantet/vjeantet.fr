@@ -3,7 +3,7 @@ date = "2014-07-11T10:54:24+02:00"
 draft = false
 title = "dotScale 2014 as a sketch"
 slug = "dotscale-2014-as-a-sketch"
-
+tags = ["event","dotScale","sketchnote"]
 +++
 
 ![](/content/images/2014/Jul/dotscale2014.png)

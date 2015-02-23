@@ -3,7 +3,7 @@ date = "2005-04-14T22:17:00+02:00"
 draft = false
 title = "1 clavier, 1 souris, et plusieurs machines."
 slug = "1-clavier-1-souris-et-plusieurs-machines"
-
+tags = ["tools"]
 +++
 
 Vous avez 2 écrans branchés sur une même machine, ou plusieurs ordinateurs sous différents OS.

@@ -1,7 +1,7 @@
-name = "Casper"
+name = "Casper v0.9.4"
 license = "MIT"
-licenselink = "https://github.com/vjeantet/vjeantet.fr/blob/master/themes/casper/LICENSE.md"
-description = "Casper theme from Ghost Foundation"
+licenselink = "https://github.com/vjeantet/vjeantet.fr/blob/master/themes/casper-v094/LICENSE.md"
+description = "Casper theme from Ghost Foundation v0.9.4"
 homepage = "http://vjeantet.fr/"
 tags = ["", ""]
 features = ["", ""]
@@ -11,6 +11,6 @@ features = ["", ""]
   homepage = "http://vjeantet.fr"
 
 [original]
-  name = "Casper"
+  name = "Casper v0.9.4"
   homepage = "https://github.com/TryGhost/Casper"
   repo = "https://github.com/TryGhost/Casper"

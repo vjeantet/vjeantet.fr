@@ -3,7 +3,7 @@ date = "2014-04-15T23:58:00+02:00"
 draft = false
 title = "Meetup pre-devoxx GoogleDevGroup Paris"
 slug = "meetup-pre-devoxx-googledevgroup-paris"
-
+tags = ["event","meetup","devoxx"]
 +++
 
 Bonne petite soirée le meetup Google Developer Group, une salle aux sieges confortables, et des speakers de qualité.

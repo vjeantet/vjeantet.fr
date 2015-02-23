@@ -1,9 +1,0 @@
-    <article class="{{ .Type }}">
-        <header class="post-header">
-            <span class="post-meta">{{if .Site.Params.author}}{{ .Site.Params.author }}, {{end}}<time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHtml }}">{{ .Date.Format "2 Jan 2006" }}</time> {{if .Params.tags }}On {{ .Params.tags }}{{end}}</span>
-            <h2 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>{{ .Summary }}&hellip; <a class="read-more" href="{{ .Permalink }}">&raquo;</a></p>
-        </section>
-    </article>

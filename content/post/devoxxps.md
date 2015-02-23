@@ -3,7 +3,7 @@ date = "2014-02-21T19:11:36+01:00"
 draft = false
 title = "DevO(xx|ps)"
 slug = "devoxxps"
-
+tags = ["event","devoxx","devops"]
 +++
 
 En attendant une date pour le Devops 2014, on se voit au DevOxx Paris 2014 !

@@ -3,7 +3,7 @@ date = "2014-02-05T23:35:08+01:00"
 draft = false
 title = "GOlang, chez Google"
 slug = "golang-chez-google"
-
+tags = ["event","meetup","golang"]
 +++
 
 Ce soir une petite session [meetup GOLANG](http://www.meetup.com/Golang-Paris/), animée par un ingénieur de chez Google US.
