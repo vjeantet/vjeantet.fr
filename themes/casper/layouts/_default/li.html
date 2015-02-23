@@ -1,0 +1,22 @@
+<article class="post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>
+        {{ .Summary }} 
+        {{ if .Truncated }}
+        	<a class="read-more" href="{{ .Permalink }}">&raquo;</a>
+        {{ end }}
+        </p>
+    </section>
+    <footer class="post-meta">
+        {{ .Site.Params.author }}
+        {{ .Params.tags }}
+        <time class="post-date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHtml }}">
+          {{ .Date.Format "2 Jan 2006" }}
+         </time>
+    </footer>
+</article>
+
+

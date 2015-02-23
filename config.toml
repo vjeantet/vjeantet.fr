@@ -1,0 +1,15 @@
+baseurl = "http://vjeantet.fr"
+languageCode = "fr-FR"
+title = "Valère JEANTET"
+paginate = 5
+
+[params]
+  description = "Whatever the mind of man can conceive and believe, it can achieve."
+  author = "Valère JEANTET"
+  bio= "my bio"
+  GitHubUser= "vjeantet"
+  logo = "images/logo.png"
+  cover = "images/cover_pattes.jpg"
+
+[permalinks]
+  post = "/:slug/"

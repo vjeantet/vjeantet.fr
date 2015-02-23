@@ -1,0 +1,86 @@
+{{ partial "header.html" . }}
+{{ $baseurl := .Site.BaseUrl }}
+
+<header class="main-header post-head no-cover" style="background-image:url({{ .Site.BaseUrl }}images/bg.jpg)">
+    <nav class="main-nav overlay clearfix">
+        <a class="back-button icon-arrow-left" href="{{ .Site.BaseUrl }}">Home</a>
+        <a class="subscribe-button icon-feed" href="{{ .RSSLink }}">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+
+
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="text-primary">{{ .Title }}</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHtml }}">
+          {{ .Date.Format "Jan 2, 2006" }}
+        </time>
+      </div>
+      <div class="pull-right">
+        {{ range .Params.tags }}
+        <span class="post-tag small"><a href="{{ $baseurl }}/tags/{{ . | urlize }}">#{{ . }}</a></span>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+  <section class="post-content">
+    {{ .Content }}
+  </section>
+  <footer class="post-footer">
+    <section class="author-info row author">
+      <div class="author-avatar col-md-2">
+        {{ with .Site.Params.avatar }}
+        <img src="{{ . }}" />
+        {{ end }}
+      </div>
+      <div class="author-meta col-md-6 author-meta">
+      {{ with .Site.Params.author }}
+      <h3 class="author-name text-primary">{{ . }}</h3>
+      {{ end }}
+      {{ with .Site.Params.bio }}
+      <div class="author-bio">{{ . }}</div>
+      {{ end }}
+      </div>
+
+    </section>
+
+      <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href=""
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href=""
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href=""
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+      </section>
+
+    {{ with .Site.DisqusShortname }}
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = '{{ . }}';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    {{ end }}
+  </footer>
+</article>
+
+</main>
+{{ partial "footer.html" . }}
