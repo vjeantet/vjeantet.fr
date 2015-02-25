@@ -6,10 +6,11 @@ paginate = 5
 [params]
   description = "Whatever the mind of man can conceive and believe, it can achieve."
   author = "Valère JEANTET"
+  authorimage = ""
   bio= "my bio"
   GitHubUser= "vjeantet"
   logo = "images/logo.png"
-  cover = "images/cover_pattes.jpg"
+  cover = "images/cover_polenord.jpg"
 
 [permalinks]
   post = "/:slug/"

@@ -4,6 +4,7 @@ draft = false
 title = "dotScale 2014 as a sketch"
 slug = "dotscale-2014-as-a-sketch"
 tags = ["event","dotScale","sketchnote"]
+image = "/content/images/2014/Jul/titledotscale.png"
 +++
 
 ![](/content/images/2014/Jul/dotscale2014.png)

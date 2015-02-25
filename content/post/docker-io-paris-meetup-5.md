@@ -4,6 +4,7 @@ draft = false
 title = "Docker.io Paris MEETUP #5"
 slug = "docker-io-paris-meetup-5"
 tags = ["event","docker","meetup"]
+image = "/content/images/2014/Feb/dokerparis_title.png"
 +++
 
 Veille de saint Valentin 2014, les curieux, passionnés et amoureux de Docker se sont rencontrés encore une fois pour échanger leurs expériences autour de [Docker.io](http://docker.io)

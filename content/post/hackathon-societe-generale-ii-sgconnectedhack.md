@@ -4,6 +4,7 @@ draft = false
 title = "Hackathon Société Générale II (#SGConnectedHACK)"
 slug = "hackathon-societe-generale-ii-sgconnectedhack"
 tags = ["event","hackathon", "socgen", "iot","sketchnote"]
+image = "/content/images/2014/Sep/title.png"
 +++
 
 Mes notes graphiques de la soirée idéation...

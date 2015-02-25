@@ -646,18 +646,16 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 .main-nav.overlay a:hover {
-    color: black;
+    color: #222;
     border-color: #fff;
-    background: #ABC2B6;
+    background: #fff;
     transition: all 0.1s ease;
-
 }
 
 /* Add a border to the buttons on hover */
 .back-button:hover,
 .subscribe-button:hover {
     border-color: #bfc8cd;
-
     color: #9EABB3;
 }
 
@@ -684,23 +682,21 @@ margin on the iframe, cause it breaks stuff. */
 .no-cover.main-header {
     min-height: 160px;
     max-height: 40%;
-    background-color: #f5f8fa;
-
+    background: #f5f8fa;
 }
 
 .no-cover .page-title {
-    color: white;
+    color: rgba(0,0,0,0.8);
 }
 
 .no-cover .page-description {
-    color: rgba(255,255,255,0.8);
-    
+    color: rgba(0,0,0,0.5);
 }
 
 .no-cover .main-nav.overlay .back-button,
 .no-cover .main-nav.overlay .subscribe-button {
-    color: white;
-    border-color: white;
+    color: rgba(0,0,0,0.4);
+    border-color: rgba(0,0,0,0.3);
 }
 
 /* Add subtle load-in animation for content on the home page */
@@ -1067,11 +1063,8 @@ body:not(.post-template) .post-title {
     height: 85px;
     min-height: 0;
     margin-bottom: 0;
-    /*background: transparent;*/
-    background: #222 no-repeat center center;
-    background-size: cover;
+    background: transparent;
 }
-
 
 .tag-head.main-header {
     height: 40%;
