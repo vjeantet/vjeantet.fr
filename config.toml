@@ -2,15 +2,18 @@ baseurl = "http://vjeantet.fr"
 languageCode = "fr-FR"
 title = "Valère JEANTET"
 paginate = 5
+DisqusShortname = "vjeantet"
+Copyright = "All rights reserved - 2015"
 
 [params]
   description = "Whatever the mind of man can conceive and believe, it can achieve."
-  author = "Valère JEANTET"
-  authorimage = ""
-  bio= "my bio"
-  GitHubUser= "vjeantet"
-  logo = "images/logo.png"
   cover = "images/cover_polenord.jpg"
+  author = "Valère JEANTET"
+  logo = "images/logo.png"
+  bio= "my bio"
+  googleAnalyticsUserID = "UA-79101-12"
+
+
 
 [permalinks]
   post = "/:slug/"
