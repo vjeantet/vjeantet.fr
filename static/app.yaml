@@ -5,14 +5,9 @@ api_version: 1
 threadsafe: no
 
 handlers:
-
-- url: /tags/(.*)
-  static_files: tags/\1/index.html
-  upload: tags/.*
-
-- url: /(.*)/
+- url: /(.+)/
   static_files: \1/index.html
-  upload: (.*)/index.html
+  upload: (.+)/index.html
 
 - url: /(.+)
   static_files: \1
@@ -21,6 +16,7 @@ handlers:
 - url: /
   static_files: index.html
   upload: index.html
+
 
 skip_files:
 - ^(.*/)?app\.yaml
