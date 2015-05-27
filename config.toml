@@ -22,3 +22,29 @@ Copyright = "All rights reserved - 2015"
 
 [permalinks]
   post = "/:slug/"
+
+[[menu.main]]
+  name = "Blog"
+  weight = -120
+  identifier = "blog"
+  url = "/"
+
+[[menu.main]]
+  name = "Github repos"
+  weight = 100
+  url = "http://github.com/vjeantet"
+
+[[menu.main]]
+  name = "Twitter timeline"
+  weight = 100
+  url = "https://twitter.com/vjeantet"
+
+[[menu.main]]
+  name = "Flipboard magazines"
+  weight = 101
+  url = "https://flipboard.com/@vjeantet"
+
+[[menu.main]]
+  name = "Keybase (secure msg)"
+  weight = 109
+  url = "http://Keybase.io/vjeantet"
