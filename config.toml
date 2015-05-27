@@ -1,4 +1,4 @@
-baseurl = "http://vjeantet.fr"
+baseurl = "http://vjeantet.fr/"
 languageCode = "fr-FR"
 title = "Valère JEANTET"
 paginate = 5
