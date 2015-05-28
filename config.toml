@@ -32,19 +32,21 @@ Copyright = "All rights reserved - 2015"
 [[menu.main]]
   name = "Github repos"
   weight = 100
-  url = "http://github.com/vjeantet"
+  pre = "<h3>Follow me</h3>"
+  url = "https://github.com/vjeantet"
 
 [[menu.main]]
   name = "Twitter timeline"
-  weight = 100
+  weight = 101
   url = "https://twitter.com/vjeantet"
 
 [[menu.main]]
   name = "Flipboard magazines"
-  weight = 101
+  weight = 102
   url = "https://flipboard.com/@vjeantet"
 
 [[menu.main]]
   name = "Keybase (secure msg)"
   weight = 109
-  url = "http://Keybase.io/vjeantet"
+  pre = "<h3>Contact me</h3>"
+  url = "https://Keybase.io/vjeantet"
