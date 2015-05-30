@@ -4,7 +4,6 @@ draft = false
 title = "About me"
 comments=false
 share=false
-type = "page"
 menu= "main"
 +++
 
