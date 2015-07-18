@@ -1,0 +1,12 @@
++++
+date = "2015-07-18T14:15:00+02:00"
+draft = false
+title = "Physical security"
+type = "page"
+
+[menu.main]
+name="Physical security"
+identifier="securite_security-engineering_physical-security"
+parent="securite_security-engineering"
+weight = 1100
++++

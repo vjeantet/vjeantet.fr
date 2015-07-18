@@ -1,0 +1,12 @@
++++
+date = "2015-07-18T14:15:00+02:00"
+draft = false
+title = "Security governance principles"
+type = "page"
+
+[menu.main]
+name="Security governance principles"
+identifier="securite_security-and-risk-management_security-governance-principles"
+parent="securite_security-and-risk-management"
+weight = 200
++++

@@ -1,0 +1,12 @@
++++
+date = "2015-07-18T14:15:00+02:00"
+draft = false
+title = "Appropriate retention"
+type = "page"
+
+[menu.main]
+name="Appropriate retention"
+identifier="securite_asset-security_appropriate-retention"
+parent="securite_asset-security"
+weight = 400
++++

@@ -1,0 +1,12 @@
++++
+date = "2015-07-18T14:15:00+02:00"
+draft = false
+title = "Security architectures, designs, and solution elements vulnerabilities"
+type = "page"
+
+[menu.main]
+name="Security architectures, designs, and solution elements vulnerabilities"
+identifier="securite_security-engineering_security-architectures-designs-and-solution-elements-vulnerabilities"
+parent="securite_security-engineering"
+weight = 500
++++
