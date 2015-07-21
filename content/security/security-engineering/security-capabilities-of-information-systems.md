@@ -1,6 +1,6 @@
 +++
 date = "2015-07-18T14:15:00+02:00"
-draft = false
+draft = true
 title = "Security capabilities of information systems"
 type = "page"
 
