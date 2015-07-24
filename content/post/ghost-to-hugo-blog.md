@@ -50,3 +50,6 @@ This Blog is now Proudly published with [HUGO](http://gohugo.io), with a Casper 
 ### Github
 You can publish your site to github.io, see documentation here : [Hosting on GitHub Pages](http://gohugo.io/tutorials/github-pages-blog/) 
 
+## Source code
+All source code from for this blog, app.yaml, deploy.sh, content and theme are on github : [github.com/vjeantet/vjeantet.fr](https://github.com/vjeantet/vjeantet.fr)
+
