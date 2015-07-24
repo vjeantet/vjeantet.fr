@@ -25,7 +25,7 @@ The fist thing to do : extract posts from Ghost db (sqlite) to individual .md fi
 The code I used to achieve this is here : [GHOST_TO_HUGO.php](https://gist.github.com/vjeantet/d1f6cf824a2344dd6b4e)
 
 Next step, move GHOST/content directory to HUGO/static directory.
-This way all references like images keeps working.
+This way all references like images keep working.
 
 Migration completed ! 
 
@@ -46,4 +46,7 @@ $ ./deploy.sh
 ```
 
 This Blog is now Proudly published with [HUGO](http://gohugo.io), with a Casper theme and hosted on Google App Engine.
+
+### Github
+You can publish your site to github.io, see documentation here : [Hosting on GitHub Pages](http://gohugo.io/tutorials/github-pages-blog/) 
 
