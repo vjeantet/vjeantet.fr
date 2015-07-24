@@ -34,16 +34,16 @@ The default theme on ghost was perfect for my blog, but unavailable on HUGO… S
 
 ## Publishing
 ### Google App Engine
-I put my GAE configuration file **app.yaml**  into the HUGO/static directory, to see it pushed to the Public directory each time i generate the blog. with ```hugo -t casper```
+I put my GAE configuration file **app.yaml**  into the HUGO/static directory, to see it pushed when hugo generate the static site.
 
 To publish it online, i run the [deploy.sh script](https://github.com/vjeantet/vjeantet.fr/blob/master/deploy.sh) to 
 
 * stage/commit/push contents changes to my git repo
-* publish the public directory to Google App Engine
-
+* deploy the public directory to Google App Engine
 
 ```
 $ ./deploy.sh
 ```
+
 This Blog is now Proudly published with [HUGO](http://gohugo.io), with a Casper theme and hosted on Google App Engine.
 
