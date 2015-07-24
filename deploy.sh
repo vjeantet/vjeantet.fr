@@ -3,7 +3,7 @@
 echo -e "\033[0;32mDeploying updates to AppEngine...\033[0m"
 
 # Build the project. 
-hugo -t casper
+hugo
 
 # Add changes to git.
 git add -A
@@ -15,6 +15,8 @@ if [ $# -eq 1 ]
 fi
 git commit -m "$msg"
 
-# Push source and build repos.
+# Push source 
 git push origin master
+
+# Deploy to AppEngine
 appcfg.py --oauth2 update public
