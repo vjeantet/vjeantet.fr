@@ -6,6 +6,7 @@ title = "About me"
 comments=false
 share=false
 menu= "main"
+noauthor=true
 +++
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
