@@ -1,5 +1,5 @@
 baseurl = "http://vjeantet.fr/"
-languageCode = "fr-FR"
+languageCode = "en-US"
 title = "Valère JEANTET"
 paginate = 5
 DisqusShortname = "vjeantet"
