@@ -3,7 +3,7 @@ languageCode = "fr-FR"
 title = "Valère JEANTET"
 paginate = 5
 DisqusShortname = "vjeantet"
-Copyright = "All rights reserved - 2015"
+Copyright = "All rights reserved - 2016"
 theme = "casper"
 [params]
   description = "Whatever the mind of man can conceive and believe, it can achieve."
