@@ -4,9 +4,4 @@ draft = true
 title = "Acquired software security impact"
 type = "page"
 
-[menu.main]
-name="Acquired software security impact"
-identifier="securite_software-development-security_acquired-software-security-impact"
-parent="securite_software-development-security"
-weight = 400
 +++

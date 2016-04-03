@@ -1,12 +1,12 @@
 +++
 date = "2015-03-13T16:10:08+01:00"
 draft = false
-title = "Résumé de notre projet \"Agence connectée\" lors du hackathon SOCIETE GENERALE OBJETS CONNECTES"
-slug = "hackathon-societe-generale-agence-connectee"
-tags = ["hackathon","socgen","event"]
 image = "/content/images/2014/Sep/title.png"
-+++
+slug = "hackathon-societe-generale-agence-connectee"
+tags = ["hackathon", "socgen", "event"]
+title = "Résumé de notre projet \"Agence connectée\" lors du hackathon SOCIETE GENERALE OBJETS CONNECTES"
 
++++
 Voici une compilation des travaux menés lors du hackathon avec la petite équipe formée pour l'occasion !
 
 On recommence quand vous voulez les garçons !

@@ -1,52 +1,49 @@
 baseurl = "http://vjeantet.fr/"
-languageCode = "fr-FR"
-title = "Valère JEANTET"
+copyright = "All rights reserved - 2016"
+disqusshortname = "vjeantet"
+languagecode = "fr-FR"
 paginate = 5
-DisqusShortname = "vjeantet"
-Copyright = "All rights reserved - 2016"
+pluralizelisttitles = false
 theme = "casper"
+title = "Valère JEANTET"
+[[menu.main]]
+identifier = "blog"
+name = "Blog"
+url = "/"
+weight = -120
+[[menu.main]]
+name = "Github repos"
+pre = "<h3>Follow me</h3>"
+url = "https://github.com/vjeantet"
+weight = 100
+[[menu.main]]
+name = "Twitter timeline"
+url = "https://twitter.com/vjeantet"
+weight = 101
+[[menu.main]]
+name = "Flipboard magazines"
+url = "https://flipboard.com/@vjeantet"
+weight = 102
+[[menu.main]]
+name = "Keybase (secure msg)"
+pre = "<h3>Contact me</h3>"
+url = "https://Keybase.io/vjeantet"
+weight = 109
 [params]
-  description = "Whatever the mind of man can conceive and believe, it can achieve."
-  cover = "images/cover_polenord.jpg"
-  author = "Valère JEANTET"
-  authorlocation = "Paris, France"
-  authorwebsite = "http://vjeantet.fr"
-  bio= "IT software and Security Engineer, Open source enthusiast."
-  logo = "images/logo.png"
-  googleAnalyticsUserID = "UA-79101-12"
-  githubName = "vjeantet"
-  twitterName = "vjeantet"
-  # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
-  hideHUGOSupport = false
-
-
+author = "Valère JEANTET"
+authorlocation = "Paris, France"
+authorwebsite = "http://vjeantet.fr"
+bio = "IT software and Security Engineer, Open source enthusiast."
+cover = "images/cover_polenord.jpg"
+description = "Whatever the mind of man can conceive and believe, it can achieve."
+githubName = "vjeantet"
+googleAnalyticsUserID = "UA-79101-12"
+hideHUGOSupport = false
+logo = "images/logo.png"
+twitterName = "vjeantet"
 [permalinks]
-  post = "/:slug/"
-
-[[menu.main]]
-  name = "Blog"
-  weight = -120
-  identifier = "blog"
-  url = "/"
-
-[[menu.main]]
-  name = "Github repos"
-  weight = 100
-  pre = "<h3>Follow me</h3>"
-  url = "https://github.com/vjeantet"
-
-[[menu.main]]
-  name = "Twitter timeline"
-  weight = 101
-  url = "https://twitter.com/vjeantet"
-
-[[menu.main]]
-  name = "Flipboard magazines"
-  weight = 102
-  url = "https://flipboard.com/@vjeantet"
-
-[[menu.main]]
-  name = "Keybase (secure msg)"
-  weight = 109
-  pre = "<h3>Contact me</h3>"
-  url = "https://Keybase.io/vjeantet"
+post = "/:slug/"
+[sitemap]
+ChangeFreq = ""
+Filename = "sitemap.xml"
+Priority = "-1"

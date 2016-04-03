@@ -4,9 +4,4 @@ draft = true
 title = "Asset valuation"
 type = "page"
 
-[menu.main]
-name="Asset valuation"
-identifier="securite_security-and-risk-management_risk-management-concepts_asset-valuation"
-parent="securite_security-and-risk-management_risk-management-concepts"
-weight = 900
 +++

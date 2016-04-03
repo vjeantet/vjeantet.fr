@@ -4,9 +4,4 @@ draft = true
 title = "Secure network components"
 type = "page"
 
-[menu.main]
-name="Secure network components"
-identifier="securite_communication-and-network-security_secure-network-components"
-parent="securite_communication-and-network-security"
-weight = 200
 +++

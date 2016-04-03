@@ -3,12 +3,13 @@ comments = false
 date = "2015-05-27T23:31:14+02:00"
 draft = false
 image = ""
-menu = "main"
-weight =  120
 share = false
 tags = []
 title = "PGP Pub Key"
 type = "page"
+weight = "120"
+[menu.main]
+weight = 120
 
 +++
 ```

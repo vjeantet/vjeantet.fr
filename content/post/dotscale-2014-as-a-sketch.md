@@ -1,12 +1,12 @@
 +++
 date = "2014-07-11T10:54:24+02:00"
 draft = false
-title = "dotScale 2014 as a sketch"
-slug = "dotscale-2014-as-a-sketch"
-tags = ["event","dotScale","sketchnote"]
 image = "/content/images/2014/Jul/titledotscale.png"
-+++
+slug = "dotscale-2014-as-a-sketch"
+tags = ["event", "dotScale", "sketchnote"]
+title = "dotScale 2014 as a sketch"
 
++++
 ![](/content/images/2014/Jul/dotscale2014.png)
 No enough time to write a summary of the last dotScale in Paris.
 

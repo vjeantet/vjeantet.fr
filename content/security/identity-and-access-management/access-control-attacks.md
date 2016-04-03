@@ -4,9 +4,4 @@ draft = true
 title = "Access control attacks"
 type = "page"
 
-[menu.main]
-name="Access control attacks"
-identifier="securite_identity-and-access-management_access-control-attacks"
-parent="securite_identity-and-access-management"
-weight = 500
 +++

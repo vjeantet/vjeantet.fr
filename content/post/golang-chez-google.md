@@ -1,11 +1,11 @@
 +++
 date = "2014-02-05T23:35:08+01:00"
 draft = false
-title = "GOlang, chez Google"
 slug = "golang-chez-google"
-tags = ["event","meetup","golang"]
-+++
+tags = ["event", "meetup", "golang"]
+title = "GOlang, chez Google"
 
++++
 Ce soir une petite session [meetup GOLANG](http://www.meetup.com/Golang-Paris/), animée par un ingénieur de chez Google US.
 Très sympa, pas trop formel et dans un français presque parfait, [Francesc Campoy Flores](http://www.campoy.cat‎) a découvert un petit groupe de passionnés, professionnels ou curieux du langage GO.
 

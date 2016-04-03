@@ -1,11 +1,11 @@
 +++
 date = "2005-04-14T22:17:00+02:00"
 draft = false
-title = "1 clavier, 1 souris, et plusieurs machines."
 slug = "1-clavier-1-souris-et-plusieurs-machines"
 tags = ["tools"]
-+++
+title = "1 clavier, 1 souris, et plusieurs machines."
 
++++
 Vous avez 2 écrans branchés sur une même machine, ou plusieurs ordinateurs sous différents OS.
 
 Je vous présente dans ce billet des méthodes pour profiter au maximum de vos machines avec 1 clavier et 1 souris.

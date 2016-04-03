@@ -1,11 +1,11 @@
 +++
 date = "2006-08-30T03:45:00+02:00"
 draft = false
-title = "80 la minute."
 slug = "80-la-minute"
 tags = ["c'est dit"]
-+++
+title = "80 la minute."
 
++++
 **J'aimerais avoir le temps d'avoir le temps.**
 
 Je suis juste pressé de vieillir pour terminer ma liste des "choses à faire"; trop pressé de savoir ce que l'on me laissera découvrir, apprendre et voir.

@@ -4,9 +4,4 @@ draft = true
 title = "Security Engineering"
 type = "page"
 
-[menu.main]
-name="Security Engineering"
-identifier="securite_security-engineering"
-parent="securite"
-weight = 300
 +++

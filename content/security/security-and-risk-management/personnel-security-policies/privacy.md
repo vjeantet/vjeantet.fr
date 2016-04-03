@@ -4,9 +4,4 @@ draft = true
 title = "Privacy"
 type = "page"
 
-[menu.main]
-name="Privacy"
-identifier="securite_security-and-risk-management_personnel-security-policies_privacy"
-parent="securite_security-and-risk-management_personnel-security-policies"
-weight = 600
 +++

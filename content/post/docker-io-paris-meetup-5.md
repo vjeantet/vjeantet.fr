@@ -1,12 +1,12 @@
 +++
 date = "2014-02-14T09:13:00+01:00"
 draft = false
-title = "Docker.io Paris MEETUP #5"
-slug = "docker-io-paris-meetup-5"
-tags = ["event","docker","meetup"]
 image = "/content/images/2014/Feb/dokerparis_title.png"
-+++
+slug = "docker-io-paris-meetup-5"
+tags = ["event", "docker", "meetup"]
+title = "Docker.io Paris MEETUP #5"
 
++++
 Veille de saint Valentin 2014, les curieux, passionnés et amoureux de Docker se sont rencontrés encore une fois pour échanger leurs expériences autour de [Docker.io](http://docker.io)
 
 > **Docker** n.m. (Début XXIe).  

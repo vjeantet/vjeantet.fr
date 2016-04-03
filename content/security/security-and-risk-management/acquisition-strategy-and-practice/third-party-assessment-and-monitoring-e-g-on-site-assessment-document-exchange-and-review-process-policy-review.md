@@ -1,13 +1,8 @@
 +++
 date = "2015-07-18T14:15:00+02:00"
+description = "on-site assessment, document exchange and review, process/policy review"
 draft = true
 title = "Third-party assessment and monitoring"
-description = "on-site assessment, document exchange and review, process/policy review"
 type = "page"
 
-[menu.main]
-name="Third-party assessment and monitoring"
-identifier="securite_security-and-risk-management_acquisition-strategy-and-practice_third-party-assessment-and-monitoring-e-g-on-site-assessment-document-exchange-and-review-process-policy-review"
-parent="securite_security-and-risk-management_acquisition-strategy-and-practice"
-weight = 200
 +++

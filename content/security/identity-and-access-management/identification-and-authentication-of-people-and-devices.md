@@ -4,9 +4,4 @@ draft = true
 title = "Identification and authentication of people and devices"
 type = "page"
 
-[menu.main]
-name="Identification and authentication of people and devices"
-identifier="securite_identity-and-access-management_identification-and-authentication-of-people-and-devices"
-parent="securite_identity-and-access-management"
-weight = 200
 +++

@@ -4,9 +4,4 @@ draft = true
 title = "Assessment and test strategies"
 type = "page"
 
-[menu.main]
-name="Assessment and test strategies"
-identifier="securite_security-assessment-and-testing_assessment-and-test-strategies"
-parent="securite_security-assessment-and-testing"
-weight = 100
 +++

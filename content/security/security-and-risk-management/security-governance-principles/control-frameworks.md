@@ -4,9 +4,4 @@ draft = true
 title = "Control frameworks"
 type = "page"
 
-[menu.main]
-name="Control frameworks"
-identifier="securite_security-and-risk-management_security-governance-principles_control-frameworks"
-parent="securite_security-and-risk-management_security-governance-principles"
-weight = 400
 +++

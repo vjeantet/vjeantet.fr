@@ -1,10 +1,10 @@
 +++
+comments = true
 date = "2015-03-02T16:08:29+01:00"
 draft = false
 title = "Moving from Ghost to HUGO"
-comments = true
-+++
 
++++
 I started to blog 11 years ago.
 The first blog system i used, was Dotclear, I moved to Wordpress few years after because of the large plugin and theme ressources available.
 Wordpress is a really good blog platform, but it updates itslef too often for me.

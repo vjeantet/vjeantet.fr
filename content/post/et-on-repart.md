@@ -1,11 +1,11 @@
 +++
 date = "2014-02-03T22:47:19+01:00"
 draft = false
-title = "dotclear, wordpress, ghost !"
 slug = "et-on-repart"
 tags = ["blog"]
-+++
+title = "dotclear, wordpress, ghost !"
 
++++
 10 années que le blog existe, 6 ans que je n'ai pas "blogué" --- (effet Twitter ?)
 
 Je retente l'expérience, j'ai enormement de sujets en mode brouillons, des dizaines, aussi vieux que mes enfants.

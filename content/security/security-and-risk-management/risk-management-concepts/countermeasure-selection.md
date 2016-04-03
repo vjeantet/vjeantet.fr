@@ -4,9 +4,4 @@ draft = true
 title = "Countermeasure selection"
 type = "page"
 
-[menu.main]
-name="Countermeasure selection"
-identifier="securite_security-and-risk-management_risk-management-concepts_countermeasure-selection"
-parent="securite_security-and-risk-management_risk-management-concepts"
-weight = 400
 +++

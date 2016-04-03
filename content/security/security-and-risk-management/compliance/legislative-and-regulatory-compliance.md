@@ -4,9 +4,4 @@ draft = true
 title = "Legislative and regulatory compliance"
 type = "page"
 
-[menu.main]
-name="Legislative and regulatory compliance"
-identifier="securite_security-and-risk-management_compliance_legislative-and-regulatory-compliance"
-parent="securite_security-and-risk-management_compliance"
-weight = 100
 +++

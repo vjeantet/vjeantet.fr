@@ -1,11 +1,11 @@
 +++
 date = "2014-05-29T01:47:50+02:00"
 draft = false
-title = "Hackaton Société Générale - jour 1"
 slug = "hackaton-societe-generale-jour-1"
-tags = ["event","hackathon", "socgen"]
-+++
+tags = ["event", "hackathon", "socgen"]
+title = "Hackaton Société Générale - jour 1"
 
++++
 Lors de la soirée pré-hackathon, les organisateurs de bemyapp, Pierre, Dorothée, Gwenn ont donné les contraintes aux porteurs de projets.
 Une idée, Une minute, 1 slide.
 

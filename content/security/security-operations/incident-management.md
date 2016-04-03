@@ -4,9 +4,4 @@ draft = true
 title = "Incident management"
 type = "page"
 
-[menu.main]
-name="Incident management"
-identifier="securite_security-operations_incident-management"
-parent="securite_security-operations"
-weight = 600
 +++

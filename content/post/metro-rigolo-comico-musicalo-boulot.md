@@ -1,11 +1,11 @@
 +++
 date = "2007-11-02T18:14:00+01:00"
 draft = false
-title = "Métro rigolo comico musicalo boulot"
 slug = "metro-rigolo-comico-musicalo-boulot"
 tags = ["c'est dit"]
-+++
+title = "Métro rigolo comico musicalo boulot"
 
++++
 8h00, ma pièce de théâtre commence.
 
 Tous les comédiens sont pret, biiiip ... Le claquement de porte marque le début du premier acte, le décor est planté, un beau tunnel noir.

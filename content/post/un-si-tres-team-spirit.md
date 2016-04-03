@@ -2,10 +2,8 @@
 date = "2014-02-21T19:04:24+01:00"
 draft = true
 title = "Un SI trés \"Team Spirit\""
-slug = "un-si-tres-team-spirit"
 
 +++
-
 Mon SI est composé d'une dizaine d'applications, installées sur 3 serveurs. 2 sont hébergées chez un hébergeur internet, le troisième dans un réseau privé.
 
 Pour accompagner le développement de l'entreprise, préparer la montée en charge sur les prochains mois, je cherche à réduire :

@@ -4,9 +4,4 @@ draft = true
 title = "Software Development Security"
 type = "page"
 
-[menu.main]
-name="Software Development Security"
-identifier="securite_software-development-security"
-parent="securite"
-weight = 800
 +++

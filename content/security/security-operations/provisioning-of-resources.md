@@ -4,9 +4,4 @@ draft = true
 title = "Provisioning of resources"
 type = "page"
 
-[menu.main]
-name="Provisioning of resources"
-identifier="securite_security-operations_provisioning-of-resources"
-parent="securite_security-operations"
-weight = 300
 +++

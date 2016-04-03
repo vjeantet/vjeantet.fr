@@ -1,11 +1,11 @@
 +++
 date = "2014-05-28T13:54:54+02:00"
 draft = false
-title = "Retour d'experience hackathon Societe generale"
 slug = "retour-dexperience-hackathon-societe-generale"
-tags = ["event","hackathon","socgen"]
-+++
+tags = ["event", "hackathon", "socgen"]
+title = "Retour d'experience hackathon Societe generale"
 
++++
 Ce week-end, j'ai participé au [hackathon organisé par bemyapp pour la SOCIÉTÉ GÉNÉRALE](http://hackathonsg.bemyapp.com/).
 Une première pour moi et la SocGen.
 

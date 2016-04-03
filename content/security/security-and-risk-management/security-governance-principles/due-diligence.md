@@ -4,9 +4,4 @@ draft = true
 title = "Due diligence"
 type = "page"
 
-[menu.main]
-name="Due diligence"
-identifier="securite_security-and-risk-management_security-governance-principles_due-diligence"
-parent="securite_security-and-risk-management_security-governance-principles"
-weight = 600
 +++

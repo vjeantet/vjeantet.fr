@@ -1,11 +1,11 @@
 +++
 date = "2014-02-08T21:48:08+01:00"
 draft = false
-title = "Serf agent to join cluster on start"
 slug = "keep-serf-agent-alive-while-failing-to-join-cluster"
 tags = ["serf"]
-+++
+title = "Serf agent to join cluster on start"
 
++++
 > Serf is a decentralized solution for service discovery and orchestration that is lightweight, highly available, and fault tolerant.
 
 ## Tell a serf agent to join a node on start

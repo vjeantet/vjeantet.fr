@@ -1,11 +1,11 @@
 +++
 date = "2014-04-18T23:00:00+02:00"
 draft = false
-title = "Mon Devoxx France 2014"
 slug = "devoxx-france-2014-review"
-tags = ["event","devoxx"]
-+++
+tags = ["event", "devoxx"]
+title = "Mon Devoxx France 2014"
 
++++
 3 jours de conférences au Devoxx france 2014
 
 # Devoxx FR Jour I

@@ -4,9 +4,4 @@ draft = true
 title = "Implementation"
 type = "page"
 
-[menu.main]
-name="Implementation"
-identifier="securite_security-and-risk-management_risk-management-concepts_implementation"
-parent="securite_security-and-risk-management_risk-management-concepts"
-weight = 500
 +++

@@ -4,9 +4,4 @@ draft = true
 title = "Secure communication channels"
 type = "page"
 
-[menu.main]
-name="Secure communication channels"
-identifier="securite_communication-and-network-security_secure-communication-channels"
-parent="securite_communication-and-network-security"
-weight = 300
 +++

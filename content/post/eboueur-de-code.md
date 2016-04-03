@@ -2,10 +2,8 @@
 date = "2006-08-09T21:00:00+02:00"
 draft = false
 title = "Eboueur de code"
-slug = "eboueur-de-code"
 
 +++
-
 Jusqu'à il y quelques temps, je pensais que les programmeurs informatique, aussi appelés "pisseurs de code", avaient le travail le plus ingrat dans l'informatique.
 
 Jusqu'au jour où j'ai découvert les "éboueurs de code", vous savez !, ceux qui passent derrière ceux qui pissent, ceux là même qui maintiennent les codes source, de logiciels, hérités de 4 stagiaires successif, ou d'un chimiste reconverti à l'informatique. (Il y a aussi ces fameux script-kids, de "talentueux" webmasters, plus cuisiniers que programmeurs, capable de faire un plat de spaghetti avec des lignes de code).

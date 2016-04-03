@@ -4,9 +4,4 @@ draft = true
 title = "Resource protection techniques"
 type = "page"
 
-[menu.main]
-name="Resource protection techniques"
-identifier="securite_security-operations_resource-protection-techniques"
-parent="securite_security-operations"
-weight = 500
 +++

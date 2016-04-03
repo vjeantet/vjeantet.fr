@@ -4,9 +4,4 @@ draft = true
 title = "Privacy requirements compliance"
 type = "page"
 
-[menu.main]
-name="Privacy requirements compliance"
-identifier="securite_security-and-risk-management_compliance_privacy-requirements-compliance"
-parent="securite_security-and-risk-management_compliance"
-weight = 200
 +++
