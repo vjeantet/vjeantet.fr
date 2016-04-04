@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_asset-security_protect-privacy"
 parent = "securite_asset-security"
-weight = 300
+weight = 133
 
 +++

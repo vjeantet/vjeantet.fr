@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-engineering_security-capabilities-of-information-systems"
 parent = "securite_security-engineering"
-weight = 400
+weight = 137
 
 +++

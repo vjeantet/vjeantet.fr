@@ -7,6 +7,6 @@ type = "page"
 [menu.main]
 identifier = "securite_asset-security_handling-requirements-e-g-markings-labels-storage"
 parent = "securite_asset-security"
-weight = 600
+weight = 121
 
 +++

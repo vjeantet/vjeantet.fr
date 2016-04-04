@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_acquisition-strategy-and-practice"
 parent = "securite_security-and-risk-management"
-weight = 1100
+weight = 112
 
 +++

@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_threat-modeling"
 parent = "securite_security-and-risk-management"
-weight = 1000
+weight = 144
 
 +++

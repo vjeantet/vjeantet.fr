@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-engineering_security-architectures-designs-and-solution-elements-vulnerabilities"
 parent = "securite_security-engineering"
-weight = 500
+weight = 136
 
 +++

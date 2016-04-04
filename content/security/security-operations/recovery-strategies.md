@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_recovery-strategies"
 parent = "securite_security-operations"
-weight = 1000
+weight = 134
 
 +++

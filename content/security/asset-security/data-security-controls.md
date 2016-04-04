@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_asset-security_data-security-controls"
 parent = "securite_asset-security"
-weight = 500
+weight = 118
 
 +++

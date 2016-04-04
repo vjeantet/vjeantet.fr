@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_business-continuity-planning-and-exercises"
 parent = "securite_security-operations"
-weight = 1200
+weight = 114
 
 +++

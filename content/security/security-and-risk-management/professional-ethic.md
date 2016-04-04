@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_professional-ethic"
 parent = "securite_security-and-risk-management"
-weight = 500
+weight = 132
 
 +++

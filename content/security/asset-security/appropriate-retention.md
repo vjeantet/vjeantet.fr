@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_asset-security_appropriate-retention"
 parent = "securite_asset-security"
-weight = 400
+weight = 113
 
 +++

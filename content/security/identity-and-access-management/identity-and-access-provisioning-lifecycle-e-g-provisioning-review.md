@@ -8,6 +8,6 @@ type = "page"
 identifier = "securite_identity-and-access-management_identity-and-access-provisioning-lifecycle-e-g-provisioning-review"
 name = "Identity and access provisioning lifecycle"
 parent = "securite_identity-and-access-management"
-weight = 600
+weight = 122
 
 +++

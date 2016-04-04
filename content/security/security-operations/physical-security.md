@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_physical-security"
 parent = "securite_security-operations"
-weight = 1300
+weight = 130
 
 +++

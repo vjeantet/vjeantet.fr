@@ -8,6 +8,6 @@ type = "page"
 identifier = "securite_asset-security_ownership-e-g-data-owners-system-owners"
 name = "Ownership"
 parent = "securite_asset-security"
-weight = 200
+weight = 110
 
 +++

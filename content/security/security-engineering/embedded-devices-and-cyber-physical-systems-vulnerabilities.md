@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-engineering_embedded-devices-and-cyber-physical-systems-vulnerabilities"
 parent = "securite_security-engineering"
-weight = 800
+weight = 120
 
 +++

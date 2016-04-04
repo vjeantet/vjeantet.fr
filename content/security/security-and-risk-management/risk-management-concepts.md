@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_risk-management-concepts"
 parent = "securite_security-and-risk-management"
-weight = 900
+weight = 135
 
 +++

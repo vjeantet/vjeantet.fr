@@ -21,7 +21,7 @@ Redirection immédiate vers "Angularjs from scratch"... La salle craque... Je me
 3h sur [Cassandra](http://cassandra.apache.org), explication en profondeur de fonctionnement de Cassandra: structures de données, patterns et antipatterns, modèlisation, structures de persistance, language de requêtes etc... Speaker, DuyHai DOAN (@doanduyhai), de très bonne qualité.
 
 # Buffet !
-![](/content/images/2014/Apr/resto.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FApr%2Fresto.png)
 Midi on mange ! Au buffet !
 
 ## Linux 101 (ou Linux, domptez le pingouin)
@@ -36,7 +36,7 @@ Bref déçu par le contenu, les auditeurs connaissaient déjà linux, les interv
 Ça fera tout de même une belle vidéo pour qui ne connais que très très peu linux et voudrait le redécouvrir.
 
 #Café !
-![](/content/images/2014/Apr/cafe.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FApr%2Fcafe.png)
 
 ## Talk "Redis, une base Not Only NoSQL"
 
@@ -169,4 +169,4 @@ Devoxx terminé, je vais dormir. (Correction des fautes d'orthographe pour demai
 Pour info, toutes les conférences étaient filmées, et seront disponibles bientot.
 
 
-![](/content/images/2014/Apr/devoxxfrjesuisdeveloppeur.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FApr%2Fdevoxxfrjesuisdeveloppeur.png)

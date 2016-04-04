@@ -17,7 +17,7 @@ Le hackathon aura lieu à l'école 42, l'école de Xavier Niel, une découverte 
 # ECOLE 42
 Pour décrire les locaux de 42, j'hésite en parc de loisir et startup de rêve.
 
-![](/content/images/2014/May/42.jpg)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FMay%2F42.jpg)
 
 Une salle d'attente futuriste, les serveurs informatiques installés derrière une baie vitrée dans l'entrée, salle des ordinateurs, nommée "cluster", 300 iMac dernier cri, salle de jeu vidéo, babyfoot, distributeur de panini, toilette avec un indicateur de respect des règles d'hygiènes, douches, salle "dodo" isolée, salle de repos, terasse, une salle de conférence ... Et... Aucune salle de cours.
 
@@ -51,7 +51,7 @@ Thomas a réussie a trouver 5 personnes, dont 4 élèves de l'école 42.
 # installation des équipes
 Les équipes sont invitées à rejoindre le cluster (une salle pleine à craquer de iMac) et choisir leur camp de base pour les 2 prochaines journées.
 
-![](/content/images/2014/May/cluster_42.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FMay%2Fcluster_42.png)
 
 Je rejoins l'équipe autour de l'idée de Thomas, mon projet hackathon sera "Annuaire des technos".
 

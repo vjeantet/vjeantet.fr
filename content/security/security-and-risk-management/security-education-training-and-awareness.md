@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_security-education-training-and-awareness"
 parent = "securite_security-and-risk-management"
-weight = 1200
+weight = 138
 
 +++

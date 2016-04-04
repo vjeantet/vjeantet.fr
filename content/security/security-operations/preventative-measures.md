@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_preventative-measures"
 parent = "securite_security-operations"
-weight = 700
+weight = 131
 
 +++

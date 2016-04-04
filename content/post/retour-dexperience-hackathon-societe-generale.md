@@ -9,7 +9,7 @@ title = "Retour d'experience hackathon Societe generale"
 Ce week-end, j'ai participé au [hackathon organisé par bemyapp pour la SOCIÉTÉ GÉNÉRALE](http://hackathonsg.bemyapp.com/).
 Une première pour moi et la SocGen.
 
-![](/content/images/2014/May/hackhatonsg.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FMay%2Fhackhatonsg.png)
 
 
 Expérience unique que je me propose de retourner ici sur plusieurs billets.
@@ -40,7 +40,7 @@ La référence au marathon est plus que justifiée, j'essaierai dans un billet d
 # Le pré-hackathon Société Générale
 s'est déroulé 1 semaine avant le véritable démarrage du hackathon, dans lieu sympathique, [la cartonnerie](http://www.lacartonnerieparis.com).
 
-![](/content/images/2014/May/Capture-db--C-cran-2014-05-28-C--13-26-24.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FMay%2FCapture-db--C-cran-2014-05-28-C--13-26-24.png)
 L'idée était de présenter le jury, les régles du jeu, et permettre aux porteurs d'idées d'exposer leur projet auprés des mentors (généralement un salarié du groupe SG, à la fois membre du jury  et coach) pour vérifier la pertinence de son idées et/ou l'ajuster au theme apporté par la SG : 
 > Créer des applications améliorant les processus et le quotidien des développeurs au sein des DSI
 

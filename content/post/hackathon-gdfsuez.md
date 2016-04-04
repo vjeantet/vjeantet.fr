@@ -10,4 +10,4 @@ Mes notes graphique réalisées pendant la journée de préparation du hackathon
 
 > Notes reprises dans zdnet pour illustrer l'événement : http://www.zdnet.fr/actualites/hackgdfsuez-la-transformation-numerique-est-en-marche-39803135.htm
 
-![](/content/images/2014/Jul/hackgdfsuez_notes_vjeantet.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FJul%2Fhackgdfsuez_notes_vjeantet.png)

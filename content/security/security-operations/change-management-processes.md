@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_change-management-processes"
 parent = "securite_security-operations"
-weight = 900
+weight = 115
 
 +++

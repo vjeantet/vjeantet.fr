@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-operations_disaster-recovery-processes-and-plans"
 parent = "securite_security-operations"
-weight = 1100
+weight = 119
 
 +++

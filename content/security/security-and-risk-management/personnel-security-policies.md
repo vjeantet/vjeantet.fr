@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_personnel-security-policies"
 parent = "securite_security-and-risk-management"
-weight = 800
+weight = 128
 
 +++

@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_legal-and-regulatory-issues"
 parent = "securite_security-and-risk-management"
-weight = 400
+weight = 123
 
 +++

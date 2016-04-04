@@ -8,7 +8,7 @@ type = "page"
 identifier = "securite"
 name = "Securité"
 pre = "<h3>Topics</h3>"
-weight = 1401
+weight = 143
 
 +++
 Des ressources et des notes liées à la sécurité informatique.

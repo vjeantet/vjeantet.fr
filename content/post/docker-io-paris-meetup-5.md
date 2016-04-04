@@ -25,7 +25,7 @@ Animé par Damien Metzler, présente **l'architecture applicative du cloud de Nu
 **Présentation du projet Boot2Docker** par Steeve Morin. 
 De la genèse du projet, ou comment à partir d'une joke avec d'autres utilisateurs, il en est arrivé à construire une distrib a partir de [TinyCoreOs](http://distro.ibiblio.org/tinycorelinux/), les contraintes qu'il a du gérer pour réussir à compiler un noyau linux minimum, exécuter docker, et exécuter dans LXC son premier container.
 
-![](/content/images/2014/Feb/dokerparis_steeve_boot2docker.JPG)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2Fdokerparis_steeve_boot2docker.JPG)
 
 [@steeve](https://twitter.com/steeve‎) a partagé avec nous les concepts et les exigences qui tirent le projet ( taille minimaliste, exécutable en ram ONLY, cas d'utilisation etc...)  
 Et pour finir une description de la communauté et de ses activités qui permets aujourd'hui au projet, de faire progresser, supporter et releaser [boot2docker](https://github.com/steeve/boot2docker‎).
@@ -37,7 +37,7 @@ Et pour finir une description de la communauté et de ses activités qui permets
 ## Entre-Talks : PIZZAs !
 Les livreurs, en scooter, sont arrivés a plusieurs pour amener toutes les pizzas tellement il y en avait...) #win #Nuxeo.
 
-![](/content/images/2014/Feb/1392387514_47.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2F1392387514_47.png)
 
 20 minutes de pizza bières et discussions entre tous les participants du meetup.
 
@@ -64,6 +64,6 @@ Voilà, belle soirée, rencontres et présentations -- à bientôt pour le proch
 
 Et merci a [DockerParis](http://www.meetup.com/Docker-Paris), [@Patrick Aljord](https://twitter.com/patcito‎) et [@Nuxeo](https://twitter.com/nuxeo‎) pour l'organisation !
 
-![](/content/images/2014/Feb/docker_logo.png)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2Fdocker_logo.png)
 
 

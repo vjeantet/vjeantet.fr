@@ -9,7 +9,7 @@ title = "Hackathon Société Générale II (#SGConnectedHACK)"
 +++
 Mes notes graphiques de la soirée idéation...
 
-![](/content/images/2014/Sep/Hackathon-sg-2-vjeantet.jpg)
+![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FSep%2FHackathon-sg-2-vjeantet.jpg)
 
 
 à vendredi !

@@ -6,6 +6,6 @@ type = "page"
 [menu.main]
 identifier = "securite_security-and-risk-management_security-governance-principles"
 parent = "securite_security-and-risk-management"
-weight = 200
+weight = 140
 
 +++
