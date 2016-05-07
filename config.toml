@@ -3,7 +3,7 @@ languageCode = "en-US"
 title = "A.B. Sullivan's Posts"
 paginate = 5
 DisqusShortname = "absullivan"
-Copyright = "All rights reserved - 2015"
+Copyright = "All rights reserved - 2016"
 theme = "casper"
 [params]
   description = "Something to read after playing Goat Simulator."
