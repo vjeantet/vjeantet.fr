@@ -33,12 +33,12 @@ theme = "casper"
   name = "Github repos"
   weight = 100
   pre = "<h3>Follow me</h3>"
-  url = "https://github.com/vjeantet"
+  url = "https://github.com/absullivan"
 
 [[menu.main]]
   name = "Twitter timeline"
   weight = 101
-  url = "https://twitter.com/vjeantet"
+  url = "https://twitter.com/absullivan1"
 
 [[menu.main]]
   name = "Flipboard magazines"
