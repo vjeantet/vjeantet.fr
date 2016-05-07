@@ -1,21 +1,21 @@
-baseurl = "http://vjeantet.fr/"
+baseurl = "http://abs-jrjs.bitballoon.com/"
 languageCode = "en-US"
-title = "Valère JEANTET"
+title = "A.B. Sullivan's Posts"
 paginate = 5
-DisqusShortname = "vjeantet"
+DisqusShortname = "absullivan"
 Copyright = "All rights reserved - 2015"
 theme = "casper"
 [params]
-  description = "Whatever the mind of man can conceive and believe, it can achieve."
-  cover = "https://lut.im/aScZMFT8fA/1XOZ5UHe.jpg"
-  author = "Valère JEANTET"
-  authorlocation = "Paris, France"
-  authorwebsite = "http://vjeantet.fr"
-  bio= "IT software and Security Engineer, Open source enthusiast."
-  logo = "images/logo.png"
+  description = "Something to read after playing Goat Simulator."
+  cover = "jasper-jekyll-header.jpg"
+  author = "A.B. Sullivan"
+  authorlocation = "Champlain Valley, Vermont"
+  authorwebsite = "http://abs-jrjs.bitballoon.com/"
+  bio= "Lives, writes, and votes in the Champlain Valley of Vermont."
+  logo = "andrew-logo.png"
   googleAnalyticsUserID = "UA-79101-12"
-  githubName = "vjeantet"
-  twitterName = "vjeantet"
+  githubName = "absullivan"
+  twitterName = "absullivan1"
   # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
   hideHUGOSupport = false
 
