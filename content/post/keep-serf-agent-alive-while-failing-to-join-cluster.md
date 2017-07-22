@@ -31,4 +31,4 @@ Just add _localhost_ (your agent bind iface) to the list of node to join on star
 ---
 
 [serfdom.io website](http://serfdom.io)
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2Fserf_logo.png)
+![](/content/images/2014/Feb/serf_logo.png)

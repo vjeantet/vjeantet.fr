@@ -32,4 +32,4 @@ Enfin s'il y a une chose que je retiens, c'est une phrase mémorable d'un des sp
 
 Demain, c'est Devoxx :-)
 
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FApr%2Fgdg_paris.png)
+![](/content/images/2014/Apr/gdg_paris.png)

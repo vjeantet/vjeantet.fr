@@ -6,4 +6,4 @@ tags = ["hackathon", "sketchnote", "event"]
 title = "Hackathon Global Summit Of Women"
 
 +++
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FJul%2Fhackgsw_notes_vjeantet.png)
+![](/content/images/2014/Jul/hackgsw_notes_vjeantet.png)

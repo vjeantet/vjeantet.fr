@@ -55,4 +55,4 @@ The same, faster.
 $ say --voice Thomas --rate=400 "Bonjour je m'appelle Valère"
 ```
 
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FMay%2F26758.png)
+![](/content/images/2014/May/26758.png)

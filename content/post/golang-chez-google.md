@@ -13,7 +13,7 @@ Il fallait y être ce soir : liste d'attente, contrôle sécurité, signalétiqu
 
 Le petit groupe ( assidu ! ) a pu choisir le talk du soir à main levée, "Best practices with golang" sera le talk du soir.
 
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2FGOLANG_meetup_paris_Francesc_Campoy_Flores.JPG)
+![](/content/images/2014/Feb/GOLANG_meetup_paris_Francesc_Campoy_Flores.JPG)
 
 A noter que l'orateur à du s'arrêter prendre une photo du groupe quand il a vu le nombre de personnes qui utilisait GO en production. (Pour montrer au chef a t'il dit..)
 
@@ -23,4 +23,4 @@ Et puis pour finir sobrement, la pizza/bière by Google.
 
 Bravo à Frédéric Menez et aux organisateurs, c'est un meetup de plus réussi.
 
-![](http://forestry.io/sites/if-azewa8mogmw/image/%2Fcontent%2Fimages%2F2014%2FFeb%2Fgophermega_0.jpg)
+![](/content/images/2014/Feb/gophermega_0.jpg)
