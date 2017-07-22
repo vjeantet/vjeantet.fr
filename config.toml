@@ -4,7 +4,7 @@ disqusshortname = "vjeantet"
 languagecode = "fr-FR"
 paginate = 5
 pluralizelisttitles = false
-theme = "casper"
+theme = "hugo-theme-casper"
 title = "Valère JEANTET"
 [[menu.main]]
 identifier = "blog"
