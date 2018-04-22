@@ -42,6 +42,8 @@ googleAnalyticsUserID = "UA-79101-12"
 hideHUGOSupport = false
 logo = "images/logo.png"
 twitterName = "vjeantet"
+customFooterPartial = "netlify.html"
+
 [permalinks]
 post = "/:slug/"
 [sitemap]
