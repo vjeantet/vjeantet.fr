@@ -1,0 +1,4 @@
+prose:
+  rooturl: 'content'
+  siteurl: 'https://vjeantet.fr/'
+  media: 'static'
