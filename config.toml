@@ -19,11 +19,11 @@ weight = 100
 [[menu.main]]
 name = "Twitter timeline"
 url = "https://twitter.com/vjeantet"
-weight = 101
-[[menu.main]]
-name = "Flipboard magazines"
-url = "https://flipboard.com/@vjeantet"
 weight = 102
+[[menu.main]]
+name = "Mastodon timeline"
+url = "https://infosec.exchange/@vjeantet"
+weight = 101
 [[menu.main]]
 name = "Keybase (secure msg)"
 pre = '<a rel="me" href="https://infosec.exchange/@vjeantet">Mastodon</a><h3>Contact me</h3>'
