@@ -1,6 +1,6 @@
 +++
 date = "2023-01-20T10:08:00+01:00"
-draft = false
+draft = true
 slug = "mastodon-check"
 tags = ["mastodon"]
 title = "Check Mastodon."
