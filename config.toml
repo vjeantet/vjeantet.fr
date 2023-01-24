@@ -22,7 +22,7 @@ url = "https://twitter.com/vjeantet"
 weight = 102
 [[menu.main]]
 name = "Mastodon timeline"
-url = "https://infosec.exchange/@vjeantet"
+url = "https://hachyderm.io/@vjeantet"
 weight = 101
 [[menu.main]]
 name = "Keybase (secure msg)"
