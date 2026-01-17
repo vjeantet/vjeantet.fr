@@ -17,8 +17,8 @@ pre = "<h3>Follow me</h3>"
 url = "https://github.com/vjeantet"
 weight = 100
 [[menu.main]]
-name = "Twitter timeline"
-url = "https://twitter.com/vjeantet"
+name = "X timeline"
+url = "https://x.com/vjeantet"
 weight = 102
 [[menu.main]]
 name = "Mastodon timeline"
