@@ -2,10 +2,11 @@ baseurl = "http://vjeantet.fr/"
 copyright = "All rights reserved"
 disqusshortname = "vjeantet"
 languagecode = "fr-FR"
-paginate = 5
 pluralizelisttitles = false
 theme = "hugo-theme-casper"
 title = "Valère JEANTET"
+[pagination]
+pagerSize = 5
 [[menu.main]]
 identifier = "blog"
 name = "Blog"
