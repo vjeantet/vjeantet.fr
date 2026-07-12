@@ -10,7 +10,7 @@ On a passé quelques années à faire progresser la segmentation : du firewall p
 
 Les agents de coding (Claude Code notamment) déplacent le problème : la menace n'est plus une machine compromise, mais un processus légitime, sur votre poste, avec vos droits.
 
-Depuis peu (forcément), j'accompagne leur déploiement en environnement d'entreprise. Les apprentissages sont autant organisationnels et méthodologiques que techniques : gouvernance, responsabilités, façon de travailler des équipes ; c'est un autre sujet, au moins aussi riche.
+Depuis peu, j'accompagne leur déploiement en environnement d'entreprise. Les apprentissages sont autant organisationnels et méthodologiques que techniques : gouvernance, responsabilités, façon de travailler des équipes ; c'est un autre sujet, au moins aussi riche.
 
 Je partage ici un enseignement purement cyber/technique.
 
