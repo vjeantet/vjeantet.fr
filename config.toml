@@ -63,6 +63,9 @@ name = "Tags"
 url = "/tags/"
 weight = 5
 
+[security]
+allowContent = ['^text/']
+
 [frontmatter]
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
