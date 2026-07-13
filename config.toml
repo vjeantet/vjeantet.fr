@@ -38,29 +38,24 @@ icon = "twitter"
 url = "https://twitter.com/vjeantet"
 
 [[params.social]]
-name = "Mastodon"
-icon = "simple:mastodon"
-url = "https://hachyderm.io/@vjeantet"
+name = "Bluesky"
+icon = "simple:bluesky"
+url = "https://bsky.app/profile/vjeantet.bsky.social"
 
 [[params.social]]
-name = "Keybase (secure msg)"
-icon = "simple:keybase"
-url = "https://keybase.io/vjeantet"
+name = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/valerejeantet"
+
+[[params.social]]
+name = "Signal (secure msg)"
+icon = "simple:signal"
+url = "https://signal.me/#eu/8vo6HxU6m15mccSy0_302yOQPGylFau5F0euYupiRNM45-d6xUhC7oKs1F0g4IzV"
 
 [[menu.main]]
 name = "Home"
 url = "/"
 weight = 1
-
-[[menu.main]]
-name = "Posts"
-url = "/post/"
-weight = 2
-
-[[menu.main]]
-name = "Security"
-url = "/security/"
-weight = 3
 
 [[menu.main]]
 name = "About"
