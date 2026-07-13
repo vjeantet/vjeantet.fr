@@ -1,0 +1,23 @@
+# Explicit Hugo configuration so Netlify does not try to guess the framework.
+# Both Hugo and Zola use a root config.toml, which made Netlify's autodetection
+# ambiguous ("Multiple possible dev commands found: Hugo, Zola").
+#
+# The `--theme hugo-paper` flag is required because a stale `HUGO_THEME`
+# environment variable (pointing at the old Casper theme) is still defined in
+# the Netlify project settings. Hugo reads HUGO_THEME from the environment and
+# it overrides `theme` in config.toml; the command-line flag takes precedence
+# over both, so it forces the correct theme regardless of that env var.
+
+[build]
+  publish = "public"
+  command = "hugo --gc --minify --theme hugo-paper"
+
+[build.environment]
+  HUGO_VERSION = "0.164.0"
+  HUGO_THEME = "hugo-paper"
+
+# Force the local/preview dev server to use Hugo instead of autodetecting.
+[dev]
+  framework = "#custom"
+  command = "hugo server --theme hugo-paper"
+  targetPort = 1313

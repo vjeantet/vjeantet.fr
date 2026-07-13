@@ -1,52 +1,53 @@
 baseurl = "http://vjeantet.fr/"
 copyright = "All rights reserved"
-disqusshortname = "vjeantet"
-languagecode = "fr-FR"
+locale = "fr-FR"
+defaultContentLanguage = "fr"
 pluralizelisttitles = false
-theme = "hugo-theme-casper"
+theme = "hugo-paper"
 title = "Valère JEANTET"
+enableInlineShortcodes = true
+
 [pagination]
 pagerSize = 5
+
 [[menu.main]]
 identifier = "blog"
 name = "Blog"
 url = "/"
 weight = -120
 [[menu.main]]
-name = "Github repos"
-pre = "<h3>Follow me</h3>"
-url = "https://github.com/vjeantet"
-weight = 100
-[[menu.main]]
-name = "X timeline"
-url = "https://x.com/vjeantet"
-weight = 102
-[[menu.main]]
-name = "Mastodon timeline"
-url = "https://hachyderm.io/@vjeantet"
-weight = 101
-[[menu.main]]
-name = "Keybase (secure msg)"
-pre = '<h3>Contact me</h3>'
-url = "https://Keybase.io/vjeantet"
-weight = 109
+name = "About"
+url = "/about/"
+weight = 10
 
 [params]
+env = "production"
 author = "Valère JEANTET"
-authorlocation = "Paris, France"
-authorwebsite = "http://vjeantet.fr"
-authorbio = "IT software and Security Engineer, Open source enthusiast."
-cover = "images/cover_polenord.jpg"
+name = "Valère JEANTET"
+bio = "IT software and Security Engineer, Open source enthusiast."
 description = "Whatever the mind of man can conceive and believe, it can achieve."
-githubName = "vjeantet"
-googleAnalyticsUserID = "UA-79101-12"
-hideHUGOSupport = false
-logo = "images/logo.png"
-twitterName = "vjeantet"
-customFooterPartial = "netlify.html"
+avatar = "https://vjeantet.fr/images/logo.png"
+color = "light"
+mainSections = ["post"]
+github = "vjeantet"
+twitter = "vjeantet"
+mastodon = "https://hachyderm.io/@vjeantet"
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+
+[taxonomies]
+tag = "tags"
 
 [permalinks]
 post = "/:slug/"
+
+[services]
+[services.disqus]
+shortname = "vjeantet"
+
 [sitemap]
 ChangeFreq = ""
 Filename = "sitemap.xml"
