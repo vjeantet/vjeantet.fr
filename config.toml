@@ -34,11 +34,6 @@ icon = "github"
 url = "https://github.com/vjeantet"
 
 [[params.social]]
-name = "Twitter"
-icon = "twitter"
-url = "https://twitter.com/vjeantet"
-
-[[params.social]]
 name = "Bluesky"
 icon = "simple:bluesky"
 url = "https://bsky.app/profile/vjeantet.bsky.social"
