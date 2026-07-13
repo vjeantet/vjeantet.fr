@@ -2,21 +2,21 @@
 # Both Hugo and Zola use a root config.toml, which made Netlify's autodetection
 # ambiguous ("Multiple possible dev commands found: Hugo, Zola").
 #
-# The `--theme github-style` flag forces the theme explicitly in case a stale
+# The `--theme archie` flag forces the theme explicitly in case a stale
 # HUGO_THEME environment variable is still defined in the Netlify project
 # settings. Hugo reads HUGO_THEME from the environment and it overrides `theme`
 # in config.toml; the command-line flag takes precedence over both.
 
 [build]
   publish = "public"
-  command = "hugo --gc --minify --theme github-style"
+  command = "hugo --gc --minify --theme archie"
 
 [build.environment]
   HUGO_VERSION = "0.164.0"
-  HUGO_THEME = "github-style"
+  HUGO_THEME = "archie"
 
 # Force the local/preview dev server to use Hugo instead of autodetecting.
 [dev]
   framework = "#custom"
-  command = "hugo server --theme github-style"
+  command = "hugo server --theme archie"
   targetPort = 1313

@@ -2,9 +2,11 @@ baseURL = "http://vjeantet.fr/"
 languageCode = "fr-FR"
 defaultContentLanguage = "fr"
 title = "Valère JEANTET"
-theme = "github-style"
+theme = "archie"
 copyright = "All rights reserved"
+pygmentsstyle = "monokai"
 pygmentsCodeFences = true
+pygmentscodefencesguesssyntax = true
 pygmentsUseClasses = true
 pluralizelisttitles = false
 
@@ -12,33 +14,63 @@ pluralizelisttitles = false
 pagerSize = 10
 
 [outputs]
-home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS"]
 
 [params]
+mode = "auto"
+useCDN = false
 author = "Valère JEANTET"
+subtitle = "IT software and Security Engineer, Open source enthusiast."
 description = "IT software and Security Engineer, Open source enthusiast."
 keywords = "blog, security, golang, hugo, devops"
-github = "vjeantet"
-twitter = "vjeantet"
-email = "valere.jeantet@gmail.com"
-url = "http://vjeantet.fr"
-avatar = "/images/logo.png"
-headerIcon = "/images/github-mark-white.png"
 favicon = "/images/logo.png"
-location = "Paris, France"
-rss = true
-lastmod = true
-enableSearch = true
+mainSections = ["post"]
 defer_custom_js = ["/js/netlify-identity.js"]
 
-[[params.links]]
-title = "Mastodon"
-href = "https://hachyderm.io/@vjeantet"
-icon = "/images/mastodon.png"
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/vjeantet"
 
-[[params.links]]
-title = "Keybase (secure msg)"
-href = "https://keybase.io/vjeantet"
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/vjeantet"
+
+[[params.social]]
+name = "Mastodon"
+icon = "simple:mastodon"
+url = "https://hachyderm.io/@vjeantet"
+
+[[params.social]]
+name = "Keybase (secure msg)"
+icon = "simple:keybase"
+url = "https://keybase.io/vjeantet"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Posts"
+url = "/post/"
+weight = 2
+
+[[menu.main]]
+name = "Security"
+url = "/security/"
+weight = 3
+
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 4
+
+[[menu.main]]
+name = "Tags"
+url = "/tags/"
+weight = 5
 
 [frontmatter]
 lastmod = ["lastmod", ":fileModTime", ":default"]
