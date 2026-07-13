@@ -1,0 +1,1639 @@
++++
+date = "2026-07-14T01:10:00+02:00"
+draft = false
+slug = "nono-guide-visuel"
+layout = "standalone"
+tags = ["cybersécurité", "ZeroTrust", "GenAI", "DevSecOps", "sandbox"]
+title = "nono : guide visuel d'architecture"
+summary = "Guide visuel de l'architecture de nono : capabilities, Landlock/Seatbelt, cycle de vie d'un run, proxy réseau, rollback. Page interactive intégrale."
++++
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nono - Architecture Field Guide</title>
+<style>
+/* ================================================================
+   nono - Architecture Field Guide
+   Self-contained: no external fonts, scripts, or assets.
+   Interactivity is CSS + <details> only.
+   ================================================================ */
+
+:root {
+  /* Semantic color language, used identically in every diagram */
+  --denied:   #d64550;   /* red    : blocked, refused             */
+  --granted:  #2fa26e;   /* green  : an open door (capability)    */
+  --agent:    #e8a13d;   /* amber  : the untrusted agent          */
+  --nono:     #5558d9;   /* indigo : nono machinery               */
+  --kernel:   #6f7a92;   /* slate  : the OS kernel                */
+
+  --paper:    #f2f2ed;
+  --paper-2:  #e9e9e2;
+  --card:     #ffffff;
+  --ink:      #23252e;
+  --ink-soft: #565a68;
+  --line:     #d9d9cf;
+
+  --dark-bg:    #14161d;
+  --dark-panel: #1d2029;
+  --dark-panel-2:#232735;
+  --dark-line:  #333849;
+  --dark-ink:   #e8e9ee;
+  --dark-soft:  #9aa0b2;
+
+  --nono-bright:  #7a7df0;  /* indigo readable on dark */
+  --granted-soft: rgba(47,162,110,.14);
+  --denied-soft:  rgba(214,69,80,.12);
+  --agent-soft:   rgba(232,161,61,.14);
+  --nono-soft:    rgba(85,88,217,.10);
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --maxw: 1060px;
+  --prose: 46rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- shared building blocks ---------- */
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+section { padding: 88px 0; }
+section.dark {
+  background: var(--dark-bg);
+  color: var(--dark-ink);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--nono);
+  display: block;
+  margin-bottom: 14px;
+}
+.dark .eyebrow { color: var(--nono-bright); }
+
+h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin-bottom: 18px; }
+h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+
+.lede {
+  max-width: var(--prose);
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.dark .lede { color: var(--dark-soft); }
+
+p.prose { max-width: var(--prose); color: var(--ink-soft); margin-top: 12px; }
+.dark p.prose { color: var(--dark-soft); }
+p.prose strong, .lede strong { color: var(--ink); font-weight: 650; }
+.dark p.prose strong, .dark .lede strong { color: var(--dark-ink); }
+
+code {
+  font-family: var(--mono);
+  font-size: .88em;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.dark code {
+  background: var(--dark-panel-2);
+  border-color: var(--dark-line);
+}
+
+/* semantic inline chips */
+.k { font-family: var(--mono); font-size: .85em; font-weight: 600; padding: 1px 7px; border-radius: 5px; white-space: nowrap; }
+.k-denied  { color: var(--denied);  background: var(--denied-soft); }
+.k-granted { color: var(--granted); background: var(--granted-soft); }
+.k-agent   { color: #b57718;        background: var(--agent-soft); }
+.dark .k-agent { color: var(--agent); }
+.k-nono    { color: var(--nono);    background: var(--nono-soft); }
+.dark .k-nono { color: var(--nono-bright); background: rgba(122,125,240,.14); }
+.k-kernel  { color: var(--kernel);  background: rgba(111,122,146,.14); }
+
+/* scroll reveal, progressive enhancement only */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+  }
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+
+.hero {
+  background:
+    radial-gradient(1100px 500px at 70% -10%, rgba(85,88,217,.22), transparent 60%),
+    var(--dark-bg);
+  color: var(--dark-ink);
+  padding: 84px 0 72px;
+  border-bottom: 1px solid var(--dark-line);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; } }
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 60px);
+  font-weight: 800;
+}
+.hero h1 .deny { color: var(--denied); }
+.hero h1 .open { color: var(--granted); }
+
+.hero .sub {
+  margin-top: 18px;
+  font-size: 18px;
+  color: var(--dark-soft);
+  max-width: 40rem;
+}
+.hero .sub strong { color: var(--dark-ink); }
+
+.badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.badge {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--dark-line);
+  color: var(--dark-soft);
+  background: var(--dark-panel);
+}
+.badge b { color: var(--dark-ink); font-weight: 600; }
+
+.hero-fig { min-width: 0; }
+.hero-fig svg { width: 100%; height: auto; display: block; }
+.hero-fig figcaption {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dark-soft);
+  text-align: center;
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .agent-glow { animation: pulse 3.2s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: .35; }
+    50%      { opacity: .8; }
+  }
+}
+
+/* table of contents chips */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 34px; }
+.toc a {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--dark-soft);
+  border: 1px solid var(--dark-line);
+  border-radius: 7px;
+  padding: 5px 10px;
+  transition: color .15s, border-color .15s;
+}
+.toc a:hover, .toc a:focus-visible { color: var(--dark-ink); border-color: var(--nono-bright); }
+
+/* ================================================================
+   LEGEND
+   ================================================================ */
+
+.legend {
+  background: var(--dark-panel);
+  border-top: 1px solid var(--dark-line);
+  border-bottom: 1px solid var(--dark-line);
+  padding: 16px 0;
+}
+.legend .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  align-items: center;
+}
+.legend .title {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dark-soft);
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--dark-ink);
+}
+.swatch { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+
+/* ================================================================
+   SANDBOXING 101
+   ================================================================ */
+
+.os-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 38px;
+}
+@media (max-width: 820px) { .os-grid { grid-template-columns: 1fr; } }
+
+.os-card {
+  background: var(--dark-panel);
+  border: 1px solid var(--dark-line);
+  border-radius: 14px;
+  padding: 26px;
+}
+.os-card .os-name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.os-card .os-name h3 { font-size: 22px; margin: 0; }
+.os-card .os-name span {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dark-soft);
+}
+.os-card p { color: var(--dark-soft); font-size: 15.5px; margin-top: 10px; }
+.os-card ul { margin-top: 14px; list-style: none; }
+.os-card li {
+  font-size: 15px;
+  color: var(--dark-soft);
+  padding: 7px 0 7px 22px;
+  position: relative;
+  border-top: 1px solid var(--dark-line);
+}
+.os-card li::before {
+  content: "";
+  position: absolute;
+  left: 4px; top: 15px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--kernel);
+}
+.os-card li.plus::before  { background: var(--granted); }
+.os-card li.minus::before { background: var(--denied); }
+.os-card li b { color: var(--dark-ink); font-weight: 600; }
+
+.irreversible {
+  margin-top: 26px;
+  border: 1px solid rgba(214,69,80,.45);
+  background: linear-gradient(0deg, rgba(214,69,80,.08), rgba(214,69,80,.08)), var(--dark-panel);
+  border-radius: 14px;
+  padding: 22px 26px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.irreversible .lock {
+  font-size: 26px;
+  line-height: 1;
+  margin-top: 3px;
+}
+.irreversible h3 { color: var(--denied); }
+.irreversible p { color: var(--dark-soft); font-size: 15.5px; max-width: 56rem; }
+.irreversible b { color: var(--dark-ink); font-weight: 600; }
+
+/* ================================================================
+   LAYER DIAGRAM
+   ================================================================ */
+
+.layers { margin-top: 40px; }
+.layer {
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  padding: 20px 26px;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 6px 26px;
+  align-items: baseline;
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+@media (max-width: 700px) { .layer { grid-template-columns: 1fr; } }
+.layer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(35,37,46,.10);
+}
+.layer .who {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.layer .role { font-weight: 700; font-size: 17px; }
+.layer .stuff {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+@media (max-width: 700px) { .layer .stuff { grid-column: 1; } }
+
+.layer.l-user   { border-left: 5px solid var(--agent); }
+.layer.l-cli    { border-left: 5px solid var(--nono); }
+.layer.l-lib    { border-left: 5px solid var(--nono); background: linear-gradient(0deg, var(--nono-soft), var(--nono-soft)), var(--card); }
+.layer.l-kernel {
+  border-left: 5px solid var(--kernel);
+  background: var(--dark-panel);
+  border-color: var(--dark-line);
+  color: var(--dark-ink);
+}
+.layer.l-kernel .stuff { color: var(--dark-soft); }
+.layer.l-user:hover   { border-color: var(--agent); }
+.layer.l-cli:hover, .layer.l-lib:hover { border-color: var(--nono); }
+
+.layer .who.w-user   { color: #b57718; }
+.layer .who.w-cli, .layer .who.w-lib { color: var(--nono); }
+.layer .who.w-kernel { color: var(--kernel); }
+
+.contract {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0 10px 44px;
+}
+.contract .arrow {
+  color: var(--kernel);
+  font-size: 17px;
+  line-height: 1;
+}
+.contract .pill {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.contract .pill b { color: var(--ink); font-weight: 650; }
+
+/* ================================================================
+   MECHANISM vs POLICY
+   ================================================================ */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 38px;
+}
+@media (max-width: 820px) { .split { grid-template-columns: 1fr; } }
+
+.side {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 26px;
+}
+.side.mechanism { border-top: 5px solid var(--nono); }
+.side.policy    { border-top: 5px solid var(--agent); }
+.side .side-tag {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.side.mechanism .side-tag { color: var(--nono); }
+.side.policy    .side-tag { color: #b57718; }
+.side h3 { font-size: 21px; }
+.side > p { color: var(--ink-soft); font-size: 15px; margin-top: 8px; }
+.side ul { list-style: none; margin-top: 16px; }
+.side li {
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.side li b { color: var(--ink); font-weight: 650; }
+
+.contract-band {
+  margin-top: 22px;
+  border: 1.5px dashed var(--nono);
+  background: var(--nono-soft);
+  border-radius: 14px;
+  padding: 20px 26px;
+  text-align: center;
+}
+.contract-band .big {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--nono);
+}
+.contract-band p { color: var(--ink-soft); font-size: 15px; max-width: 52rem; margin: 6px auto 0; }
+
+/* ================================================================
+   SEQUENCE: the life of `nono run`
+   ================================================================ */
+
+.seq { margin-top: 44px; }
+
+.step {
+  position: relative;
+  max-width: 660px;
+  margin: 0 auto 14px;
+  background: var(--dark-panel);
+  border: 1px solid var(--dark-line);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.step .n {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--nono-bright);
+  text-transform: uppercase;
+}
+.step h4 { font-size: 16px; margin-top: 2px; }
+.step p { font-size: 14.5px; color: var(--dark-soft); margin-top: 4px; }
+.step p b { color: var(--dark-ink); font-weight: 600; }
+
+.seq-spine {
+  width: 2px;
+  height: 26px;
+  margin: 0 auto 14px;
+  background: var(--dark-line);
+}
+
+.fork-node {
+  max-width: 660px;
+  margin: 0 auto;
+  text-align: center;
+}
+.fork-node .fork-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-ink);
+  background: var(--dark-panel-2);
+  border: 1.5px solid var(--nono-bright);
+  border-radius: 999px;
+  padding: 8px 22px;
+}
+.fork-node p { font-size: 13.5px; color: var(--dark-soft); margin-top: 8px; }
+
+.lanes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 26px;
+  align-items: start;
+}
+@media (max-width: 820px) { .lanes { grid-template-columns: 1fr; } }
+
+.lane {
+  border-radius: 14px;
+  border: 1px solid var(--dark-line);
+  padding: 22px;
+  transition: border-color .18s, box-shadow .18s;
+}
+.lane:hover { box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.lane.parent { background: var(--dark-panel); }
+.lane.parent:hover { border-color: var(--nono-bright); }
+.lane.child { background: var(--dark-panel); }
+.lane.child:hover { border-color: var(--agent); }
+
+.lane-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--dark-line);
+  margin-bottom: 6px;
+}
+.lane-head h3 { font-size: 17px; }
+.lane-head .tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.lane.parent .tag { color: var(--nono-bright); background: rgba(122,125,240,.14); }
+.lane.child  .tag { color: var(--agent); background: var(--agent-soft); }
+
+.lane ol { list-style: none; counter-reset: lane; }
+.lane ol li {
+  counter-increment: lane;
+  position: relative;
+  padding: 12px 0 12px 34px;
+  border-top: 1px solid var(--dark-line);
+  font-size: 14.5px;
+  color: var(--dark-soft);
+}
+.lane ol li:first-child { border-top: none; }
+.lane ol li::before {
+  content: counter(lane);
+  position: absolute;
+  left: 0; top: 12px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.lane.parent ol li::before { color: var(--nono-bright); border: 1px solid var(--nono-bright); }
+.lane.child  ol li::before { color: var(--agent); border: 1px solid var(--agent); }
+.lane li b { color: var(--dark-ink); font-weight: 600; }
+
+.lane li.pnr {
+  background: var(--denied-soft);
+  border: 1px solid rgba(214,69,80,.5);
+  border-radius: 10px;
+  padding: 12px 12px 12px 40px;
+  margin: 8px 0;
+}
+.lane li.pnr::before { left: 8px; color: var(--denied); border-color: var(--denied); }
+.lane li.pnr .pnr-tag {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--denied);
+  margin-bottom: 2px;
+}
+
+.seq-note {
+  max-width: 660px;
+  margin: 30px auto 0;
+  font-size: 14.5px;
+  color: var(--dark-soft);
+  border-left: 3px solid var(--dark-line);
+  padding-left: 16px;
+}
+.seq-note b { color: var(--dark-ink); font-weight: 600; }
+
+/* ================================================================
+   STRATEGIES
+   ================================================================ */
+
+.strat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 38px;
+}
+@media (max-width: 820px) { .strat-grid { grid-template-columns: 1fr; } }
+
+.strat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 26px;
+}
+.strat .cmd {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.strat h3 span {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-left: 8px;
+}
+.strat p { color: var(--ink-soft); font-size: 15px; margin-top: 8px; }
+.strat p b { color: var(--ink); font-weight: 650; }
+.strat .traits { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.trait {
+  font-family: var(--mono);
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+.trait.on  { color: var(--granted); background: var(--granted-soft); }
+.trait.off { color: var(--denied);  background: var(--denied-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* ================================================================
+   WORKSPACE MAP
+   ================================================================ */
+
+.crate-fig { margin-top: 40px; overflow-x: auto; }
+.crate-fig svg { display: block; min-width: 660px; width: 100%; height: auto; }
+.crate-fig figcaption {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ================================================================
+   SUBSYSTEMS
+   ================================================================ */
+
+.sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 38px;
+}
+@media (max-width: 820px) { .sub-grid { grid-template-columns: 1fr; } }
+
+.sub-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 26px;
+}
+.sub-card .sub-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--nono);
+  display: block;
+  margin-bottom: 6px;
+}
+.sub-card h3 { font-size: 20px; }
+.sub-card > p { color: var(--ink-soft); font-size: 15px; margin-top: 8px; }
+.sub-card p b { color: var(--ink); font-weight: 650; }
+
+.sub-card details { margin-top: 14px; }
+.sub-card summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nono);
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 14px;
+  transition: border-color .15s, background .15s;
+  user-select: none;
+}
+.sub-card summary::-webkit-details-marker { display: none; }
+.sub-card summary::before { content: "+"; font-weight: 700; }
+.sub-card details[open] summary::before { content: "\2212"; }
+.sub-card summary:hover { border-color: var(--nono); background: var(--nono-soft); }
+.sub-card details > div {
+  margin-top: 14px;
+  border-left: 3px solid var(--nono-soft);
+  border-left-color: rgba(85,88,217,.35);
+  padding-left: 16px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+.sub-card details p + p { margin-top: 10px; }
+.sub-card details b { color: var(--ink); font-weight: 650; }
+.sub-card details ul { margin: 8px 0 0 18px; }
+.sub-card details li { margin-top: 6px; }
+
+.sub-card a { color: var(--nono); }
+
+/* full-width feature block: the phantom token pattern */
+.sub-wide {
+  grid-column: 1 / -1;
+  background: var(--dark-bg);
+  border: 1px solid var(--dark-line);
+  border-radius: 14px;
+  padding: 32px;
+  color: var(--dark-ink);
+}
+.sub-wide .sub-tag { color: var(--nono-bright); }
+.sub-wide h3 { font-size: 23px; }
+.sub-wide > p { color: var(--dark-soft); font-size: 15.5px; margin-top: 10px; max-width: 56rem; }
+.sub-wide p b { color: var(--dark-ink); font-weight: 600; }
+
+.pt-fig { margin-top: 26px; overflow-x: auto; }
+.pt-fig svg { min-width: 780px; width: 100%; height: auto; display: block; }
+.pt-fig figcaption {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dark-soft);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.pt-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 26px;
+}
+@media (max-width: 820px) { .pt-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .pt-steps { grid-template-columns: 1fr; } }
+.pt-step {
+  border-top: 2px solid var(--dark-line);
+  padding-top: 12px;
+}
+.pt-step .n {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--nono-bright);
+  display: block;
+  margin-bottom: 4px;
+}
+.pt-step p { font-size: 13.5px; color: var(--dark-soft); }
+.pt-step b { color: var(--dark-ink); font-weight: 600; }
+
+/* mini rollback visual */
+.mini-roll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.mini-roll .m-node {
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  color: var(--ink-soft);
+}
+.mini-roll .m-node.snap { border-color: var(--granted); color: var(--granted); background: var(--granted-soft); }
+.mini-roll .m-arrow { color: var(--kernel); }
+
+/* mini proxy visual */
+.mini-proxy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.mini-proxy .m-node { border-radius: 8px; padding: 6px 10px; border: 1px solid var(--line); }
+.mini-proxy .m-agent { color: #b57718; border-color: var(--agent); background: var(--agent-soft); }
+.mini-proxy .m-proxy { color: var(--nono); border-color: var(--nono); background: var(--nono-soft); }
+.mini-proxy .m-net   { color: var(--granted); border-color: var(--granted); background: var(--granted-soft); }
+.mini-proxy .m-deny  { color: var(--denied); border-color: var(--denied); background: var(--denied-soft); }
+.mini-proxy .m-arrow { color: var(--kernel); }
+
+/* trust mode chips */
+.trust-modes { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.trust-mode {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.trust-mode .tm {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 3px 8px;
+  text-align: center;
+}
+.tm.keyless  { color: var(--granted); background: var(--granted-soft); }
+.tm.keyed    { color: var(--nono);    background: var(--nono-soft); }
+.tm.unsigned { color: var(--denied);  background: var(--denied-soft); }
+
+/* ================================================================
+   INVARIANTS
+   ================================================================ */
+
+.inv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 38px;
+  counter-reset: inv;
+}
+@media (max-width: 820px) { .inv-grid { grid-template-columns: 1fr; } }
+
+.inv {
+  counter-increment: inv;
+  background: var(--dark-panel);
+  border: 1px solid var(--dark-line);
+  border-radius: 12px;
+  padding: 20px 22px 20px 60px;
+  position: relative;
+  transition: border-color .18s, transform .18s;
+}
+.inv:hover { border-color: var(--nono-bright); transform: translateY(-2px); }
+.inv::before {
+  content: counter(inv, decimal-leading-zero);
+  position: absolute;
+  left: 20px; top: 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--nono-bright);
+}
+.inv h3 { font-size: 16.5px; color: var(--dark-ink); }
+.inv p { font-size: 14px; color: var(--dark-soft); margin-top: 6px; }
+.inv b { color: var(--dark-ink); font-weight: 600; }
+
+/* ================================================================
+   RECAP + FOOTER
+   ================================================================ */
+
+.recap {
+  text-align: center;
+  padding: 96px 0;
+}
+.recap .mantra {
+  font-size: clamp(26px, 4.4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  max-width: 44rem;
+  margin: 18px auto 0;
+}
+.recap .mantra .m-cli    { color: #b57718; }
+.recap .mantra .m-lib    { color: var(--nono); }
+.recap .mantra .m-kernel { color: var(--kernel); }
+.recap p { max-width: var(--prose); margin: 22px auto 0; color: var(--ink-soft); }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+/* focus visibility */
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--nono);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================ LANG SWITCH -->
+<div style="position:absolute; top:16px; right:22px; z-index:20; font-family:ui-monospace, Menlo, monospace; font-size:12px; letter-spacing:.08em;">
+  <span style="color:#e8e9ee; font-weight:700;">EN</span>
+  <span style="color:#3a3f52;"> / </span>
+  <a href="/content/nono-modele-mental/index.fr.html" style="color:#9aa0b2; text-decoration:none;">FR</a>
+</div>
+
+<!-- ================================================================ HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">nono / architecture field guide</span>
+      <h1><span class="deny">Deny everything.</span><br>Then <span class="open">open doors</span>.</h1>
+      <p class="sub"><strong>nono</strong> runs untrusted AI agents inside a kernel-enforced sandbox. Nothing is reachable unless a <em>capability</em> explicitly grants it; and once the walls are up, no process inside can take them down.</p>
+      <div class="badges">
+        <span class="badge"><b>OS-enforced</b> · Landlock + Seatbelt</span>
+        <span class="badge"><b>Irreversible</b> once applied</span>
+        <span class="badge"><b>Policy-free</b> core library</span>
+      </div>
+      <nav class="toc" aria-label="Page contents">
+        <a href="#why">why</a>
+        <a href="#kernel">sandboxing 101</a>
+        <a href="#layers">the layers</a>
+        <a href="#boundary">mechanism vs policy</a>
+        <a href="#run">life of nono run</a>
+        <a href="#strategies">strategies</a>
+        <a href="#workspace">workspace</a>
+        <a href="#subsystems">subsystems</a>
+        <a href="#invariants">invariants</a>
+      </nav>
+    </div>
+
+    <figure class="hero-fig">
+      <svg viewBox="0 0 560 420" role="img" aria-label="A sandboxed agent surrounded by walls, with a few granted capabilities as the only doors. Sensitive paths and the open network are blocked outside the wall.">
+        <!-- denied things, outside the wall -->
+        <g font-family="ui-monospace, Menlo, monospace" font-size="12.5">
+          <g fill="#d64550">
+            <text x="28" y="86">&#10005; ~/.ssh</text>
+            <text x="28" y="150">&#10005; keychain</text>
+            <text x="28" y="214">&#10005; browser data</text>
+            <text x="28" y="278">&#10005; shell history</text>
+            <text x="330" y="36">&#10005; open network</text>
+          </g>
+          <g stroke="#d64550" stroke-width="1.5" stroke-dasharray="4 5" opacity=".55">
+            <line x1="118" y1="82"  x2="176" y2="110"/>
+            <line x1="118" y1="146" x2="176" y2="160"/>
+            <line x1="132" y1="210" x2="176" y2="210"/>
+            <line x1="128" y1="274" x2="176" y2="252"/>
+            <line x1="368" y1="46"  x2="352" y2="74"/>
+          </g>
+        </g>
+
+        <!-- sandbox wall -->
+        <rect x="180" y="78" width="330" height="284" rx="18"
+              fill="#1d2029" stroke="#3a3f52" stroke-width="9"/>
+
+        <!-- agent glow + chip -->
+        <circle class="agent-glow" cx="345" cy="205" r="66" fill="#e8a13d" opacity=".35"/>
+        <rect x="276" y="176" width="138" height="58" rx="12"
+              fill="#2a2313" stroke="#e8a13d" stroke-width="1.5"/>
+        <text x="345" y="201" text-anchor="middle" fill="#e8a13d"
+              font-family="ui-monospace, Menlo, monospace" font-size="14" font-weight="700">AI agent</text>
+        <text x="345" y="220" text-anchor="middle" fill="#9aa0b2"
+              font-family="ui-monospace, Menlo, monospace" font-size="10.5">pid 4242 · sandboxed</text>
+
+        <!-- door: workspace rw (right wall) -->
+        <rect x="500" y="130" width="20" height="44" rx="5" fill="#2fa26e"/>
+        <text x="500" y="118" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="12.5" text-anchor="middle">&#10003;</text>
+        <text x="494" y="160" text-anchor="end" fill="#2fa26e"
+              font-family="ui-monospace, Menlo, monospace" font-size="12">./workspace rw</text>
+
+        <!-- door: runtime ro (right wall, lower) -->
+        <rect x="500" y="236" width="20" height="44" rx="5" fill="#2fa26e"/>
+        <text x="500" y="224" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="12.5" text-anchor="middle">&#10003;</text>
+        <text x="494" y="266" text-anchor="end" fill="#2fa26e"
+              font-family="ui-monospace, Menlo, monospace" font-size="12">node runtime ro</text>
+
+        <!-- door: proxy (bottom wall) -->
+        <rect x="300" y="352" width="52" height="20" rx="5" fill="#7a7df0"/>
+        <text x="326" y="396" text-anchor="middle" fill="#7a7df0"
+              font-family="ui-monospace, Menlo, monospace" font-size="12">127.0.0.1:8888 &#8594; proxy</text>
+
+        <!-- wall label -->
+        <text x="196" y="352" fill="#6f7a92"
+              font-family="ui-monospace, Menlo, monospace" font-size="10.5" transform="rotate(-90 196 352)">KERNEL-ENFORCED WALL</text>
+      </svg>
+      <figcaption>the mental model: walls by default, capabilities are the only doors</figcaption>
+    </figure>
+  </div>
+</header>
+
+<!-- ================================================================ LEGEND -->
+<div class="legend" role="note" aria-label="Color legend used across all diagrams">
+  <div class="wrap">
+    <span class="title">Color language, used in every diagram</span>
+    <span class="legend-item"><span class="swatch" style="background:var(--denied)"></span>denied / blocked</span>
+    <span class="legend-item"><span class="swatch" style="background:var(--granted)"></span>granted capability</span>
+    <span class="legend-item"><span class="swatch" style="background:var(--agent)"></span>untrusted agent</span>
+    <span class="legend-item"><span class="swatch" style="background:var(--nono-bright)"></span>nono machinery</span>
+    <span class="legend-item"><span class="swatch" style="background:var(--kernel)"></span>OS kernel</span>
+  </div>
+</div>
+
+<!-- ================================================================ WHY -->
+<section id="why">
+  <div class="wrap reveal">
+    <span class="eyebrow">01 · the problem</span>
+    <h2>An AI agent is a very fast stranger with your shell</h2>
+    <p class="lede">Coding agents read files, write files, run commands, and call the network; thousands of times per session, faster than you can review. Prompt injection, a poisoned dependency, or a plain bug can turn any of those actions hostile.</p>
+    <p class="prose">Application-level guardrails ("please don't touch <code>~/.ssh</code>") live <em>inside</em> the same process they are guarding; anything that controls the agent controls the guardrail. nono moves the boundary down to the operating system: the <strong>kernel itself</strong> refuses the syscall. The agent doesn't behave because it was asked nicely; it behaves because <span class="k k-denied">denied</span> is the default physical state of its world, and every <span class="k k-granted">granted</span> path or port is a deliberate, auditable exception.</p>
+  </div>
+</section>
+
+<!-- ================================================================ SANDBOXING 101 -->
+<section id="kernel" class="dark">
+  <div class="wrap reveal">
+    <span class="eyebrow">02 · sandboxing 101</span>
+    <h2>What the kernel already offers</h2>
+    <p class="lede">Both major desktop kernels ship a native way for a process to lock <em>itself</em> down before doing anything risky. nono is an orchestrator of these two primitives; it invents no enforcement of its own.</p>
+
+    <div class="os-grid">
+      <div class="os-card">
+        <div class="os-name">
+          <h3>Landlock</h3>
+          <span>Linux 5.13+ · LSM</span>
+        </div>
+        <p>A process builds a <b>ruleset</b> of filesystem (and, on newer kernels, network) permissions, then asks the kernel to restrict itself with it. From that syscall on, the rules apply to the process and every child it ever spawns.</p>
+        <ul>
+          <li class="plus"><b>Strictly an allow-list.</b> Whatever the ruleset doesn't mention is unreachable. There is no way to say "allow this directory except that file".</li>
+          <li class="plus"><b>Versioned ABI (v1-v6).</b> Newer kernels add TCP connect/bind filtering per port (v4) and signal/IPC scoping (v6). nono detects the ABI at runtime.</li>
+          <li class="minus"><b>Gaps on older kernels.</b> Where Landlock can't filter the network, nono falls back to seccomp syscall interception; and if even that isn't possible, it refuses to run rather than run open.</li>
+        </ul>
+      </div>
+
+      <div class="os-card">
+        <div class="os-name">
+          <h3>Seatbelt</h3>
+          <span>macOS · sandbox_init()</span>
+        </div>
+        <p>A process hands the kernel a <b>profile</b>, a small Scheme-like program that starts from <code>(deny default)</code> and enumerates exceptions. nono generates this profile from your capabilities and escapes every value that goes into it.</p>
+        <ul>
+          <li class="plus"><b>Deny-within-allow works.</b> A profile can allow a directory yet still deny one file inside it; this is why some deny rules exist only on macOS.</li>
+          <li class="plus"><b>Extensions.</b> A supervisor can hand a running sandboxed process a token that widens access to one specific path; the mediated channel nono uses for interactive elevation.</li>
+          <li class="minus"><b>Symlink surprises.</b> <code>/etc</code> is really <code>/private/etc</code>; profiles must cover both faces of every alias, and nono's path canonicalization handles this.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="irreversible">
+      <div class="lock" aria-hidden="true">&#128274;</div>
+      <div>
+        <h3>The property everything else is built on: irreversibility</h3>
+        <p>On both platforms, applying the sandbox is a <b>one-way door</b>. No API exists to widen a live sandbox from the inside; not for nono, not for the agent, not for code the agent tricks into running. Every rule is inherited by all descendants. This single kernel guarantee is what lets nono make promises that survive a fully compromised agent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ LAYERS -->
+<section id="layers">
+  <div class="wrap reveal">
+    <span class="eyebrow">03 · the big picture</span>
+    <h2>Four layers, one direction of trust</h2>
+    <p class="lede">Intent flows down and gets more concrete at every step: flags become capabilities, capabilities become kernel rules. Nothing flows back up; a lower layer never asks an upper one for permission.</p>
+
+    <div class="layers">
+      <div class="layer l-user">
+        <span class="who w-user">You</span>
+        <span class="role">Declare intent</span>
+        <span class="stuff"><code>nono run --profile node-dev -- claude</code> : a profile name, a few flags, a command to confine.</span>
+      </div>
+      <div class="contract"><span class="arrow" aria-hidden="true">&#8595;</span><span class="pill">flags + profile &#8594; <b>resolved policy</b></span></div>
+
+      <div class="layer l-cli">
+        <span class="who w-cli">nono-cli</span>
+        <span class="role">Decide policy</span>
+        <span class="stuff">Owns every opinion: profiles, policy groups (deny lists, runtimes, system paths), packs, hooks, secrets, the network proxy, rollback UX, and the choice of execution strategy. All of it is data and code you can audit.</span>
+      </div>
+      <div class="contract"><span class="arrow" aria-hidden="true">&#8595;</span><span class="pill">everything reduces to one <b>CapabilitySet</b></span></div>
+
+      <div class="layer l-lib">
+        <span class="who w-lib">nono (library)</span>
+        <span class="role">Build mechanism</span>
+        <span class="stuff">A pure sandbox primitive with <em>zero built-in policy</em>. It canonicalizes and validates every granted path, translates the CapabilitySet into a Landlock ruleset or a Seatbelt profile, and applies it. It grants exactly what it was told; nothing more, nothing implied.</span>
+      </div>
+      <div class="contract"><span class="arrow" aria-hidden="true">&#8595;</span><span class="pill">ruleset / profile &#8594; <b>one irreversible syscall</b></span></div>
+
+      <div class="layer l-kernel">
+        <span class="who w-kernel">Kernel</span>
+        <span class="role">Enforce, forever</span>
+        <span class="stuff">Landlock or Seatbelt checks every file open, every connect, every signal, for the process and all of its descendants, until they exit. No userspace code is on this path.</span>
+      </div>
+    </div>
+
+    <p class="prose">Read the page bottom-up if you're evaluating guarantees (what can the kernel actually promise?), top-down if you're learning the codebase (where would my change go?).</p>
+  </div>
+</section>
+
+<!-- ================================================================ BOUNDARY -->
+<section id="boundary">
+  <div class="wrap reveal">
+    <span class="eyebrow">04 · the load-bearing boundary</span>
+    <h2>Mechanism never carries opinion</h2>
+    <p class="lede">The single most structuring decision in nono: the library knows <em>how</em> to sandbox, only the CLI knows <em>what</em> to sandbox. If the library shipped even one built-in "sensible default", every embedder would inherit an invisible policy they never reviewed.</p>
+
+    <div class="split">
+      <div class="side mechanism">
+        <span class="side-tag">the library ships mechanism</span>
+        <h3>nono</h3>
+        <p>Deterministic, embeddable, policy-free. Everything here answers "how do I enforce exactly this?"</p>
+        <ul>
+          <li><b>CapabilitySet</b> &#183; a builder for grants: paths (read / write, file or subtree), network mode, ports, Unix sockets, signal &amp; IPC scoping, resource limits.</li>
+          <li><b>Sandbox</b> &#183; one entry point that turns a CapabilitySet into kernel state; the point of no return.</li>
+          <li><b>SandboxState</b> &#183; a serialized snapshot of the grants, re-validated on every load so stored state can't smuggle paths past canonicalization.</li>
+          <li><b>QueryContext</b> &#183; answers "would this path be allowed?" without applying anything; powers <code>nono why</code>.</li>
+          <li><b>keystore</b> &#183; resolves credential <em>references</em> into zeroized in-memory values.</li>
+          <li><b>undo</b> &#183; content-addressed snapshots for rollback: object store, Merkle tree, exclusion filters.</li>
+        </ul>
+      </div>
+
+      <div class="side policy">
+        <span class="side-tag">the cli ships policy</span>
+        <h3>nono-cli</h3>
+        <p>Opinionated, user-facing, replaceable. Everything here answers "what should be allowed, and how do I tell the human?"</p>
+        <ul>
+          <li><b>Policy groups</b> &#183; ~40 named bundles (deny credentials, node runtime, git config, dangerous commands&#8230;) resolved per platform.</li>
+          <li><b>Profiles</b> &#183; built-in, user-authored, or pulled as signed packs; they compose groups, grants, network rules, hooks.</li>
+          <li><b>Execution strategies</b> &#183; Direct vs Supervised; fork, supervise, reap.</li>
+          <li><b>Proxy wiring</b> &#183; host filtering and credential injection around the sandboxed child.</li>
+          <li><b>Rollback lifecycle</b> &#183; when to snapshot, what to exclude, how to restore.</li>
+          <li><b>Diagnostics &amp; UX</b> &#183; the "why did this fail" footer, suggested flags, learn-from-denials.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="contract-band">
+      <span class="big">CapabilitySet is the contract</span>
+      <p>Every profile, flag, pack, and policy group; no matter how it was expressed; must reduce to this one explicit, inspectable value before anything is enforced. The C FFI exposes exactly this contract to other languages, and none of the CLI's opinions come with it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ SEQUENCE -->
+<section id="run" class="dark">
+  <div class="wrap reveal">
+    <span class="eyebrow">05 · execution flow</span>
+    <h2>The life of <code>nono run</code></h2>
+    <p class="lede">From keystroke to sandboxed agent in two phases: an unsandboxed <strong>decide</strong> phase that turns intent into a CapabilitySet, then a <strong>split</strong>: one process stays outside as supervisor, one goes inside forever.</p>
+
+    <div class="seq">
+      <div class="step">
+        <span class="n">decide · 1</span>
+        <h4>Parse and load the profile</h4>
+        <p>Flags are parsed; the named profile (built-in, user file, or installed pack) is loaded and merged with the command line.</p>
+      </div>
+      <div class="seq-spine" aria-hidden="true"></div>
+
+      <div class="step">
+        <span class="n">decide · 2</span>
+        <h4>Resolve policy into a CapabilitySet</h4>
+        <p>Policy groups expand into concrete grants. <b>Every path is canonicalized and must exist.</b> A grant overlapping a deny rule, or touching nono's own state directory, is a fatal error; not a warning.</p>
+      </div>
+      <div class="seq-spine" aria-hidden="true"></div>
+
+      <div class="step">
+        <span class="n">decide · 3</span>
+        <h4>Stage the runtime services</h4>
+        <p>Secrets are resolved from the keystore into memory. If network policy filters traffic, the <b>proxy starts now</b> and the CapabilitySet is narrowed to "loopback, one port". If rollback is on, a <b>baseline snapshot</b> of the workspace is taken.</p>
+      </div>
+      <div class="seq-spine" aria-hidden="true"></div>
+
+      <div class="step">
+        <span class="n">decide · 4</span>
+        <h4>Pick the strategy</h4>
+        <p>Anything that needs a living parent; proxy, rollback, interactive elevation, diagnostics; selects <b>Supervised</b>. Otherwise Direct applies the sandbox in place and <code>exec</code>s: nono vanishes and only the walls remain.</p>
+      </div>
+      <div class="seq-spine" aria-hidden="true"></div>
+
+      <div class="fork-node">
+        <span class="fork-chip">fork()</span>
+        <p>two processes now exist, with very different fates</p>
+      </div>
+
+      <div class="lanes">
+        <div class="lane parent">
+          <div class="lane-head">
+            <h3>Parent &#183; the supervisor</h3>
+            <span class="tag">stays unsandboxed</span>
+          </div>
+          <ol>
+            <li><b>Hardens itself instantly.</b> Debugger attachment is blocked the moment the fork returns; if hardening fails, the child is killed and the run aborts. An unsandboxed process must not be an attachable one.</li>
+            <li><b>Supervises.</b> Reaps the child, forwards signals, relays the terminal, serves the proxy, and answers kernel notifications when the child touches something outside its grants; which can become an interactive "allow this?" prompt.</li>
+            <li><b>Closes the loop.</b> When the child exits: after-hooks run, an incremental rollback snapshot records what changed, and every observed denial becomes a diagnostic footer with the exact flag that would have allowed it.</li>
+            <li><b>Exits with the child's code.</b> To your shell, it was just the command.</li>
+          </ol>
+        </div>
+
+        <div class="lane child">
+          <div class="lane-head">
+            <h3>Child &#183; becomes the agent</h3>
+            <span class="tag">sandboxed for life</span>
+          </div>
+          <ol>
+            <li><b>Connects back</b> to the supervisor's socket; the one Unix socket it is allowed to reach.</li>
+            <li class="pnr"><span class="pnr-tag">point of no return</span><b>Applies the sandbox.</b> The CapabilitySet becomes a Landlock ruleset or Seatbelt profile, and the kernel enforces it. From this line on, not even this process's own code can widen its world.</li>
+            <li><b>Becomes the agent.</b> <code>execve()</code> replaces the child with the actual command. The agent starts life already inside the walls, inherits them into every subprocess, and cannot tell them to move.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="seq-note">
+        <b>Why sandbox in the child, not before the fork?</b> The parent needs powers the sandbox would destroy: writing snapshots, running the proxy, prompting you. So the split comes first, and only the process that will become the agent walks through the one-way door.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ STRATEGIES -->
+<section id="strategies">
+  <div class="wrap reveal">
+    <span class="eyebrow">06 · two ways to run</span>
+    <h2>Direct or Supervised</h2>
+    <p class="lede">One question decides everything: does anything need to keep living <em>outside</em> the sandbox after the agent starts?</p>
+
+    <div class="strat-grid">
+      <div class="strat">
+        <span class="cmd">$ nono wrap -- make build</span>
+        <h3>Direct <span>apply, then exec</span></h3>
+        <p>The sandbox is applied to the current process, then <code>exec</code> replaces it with your command. <b>nono ceases to exist</b>; there is no supervisor, no extra process, no attack surface beyond the kernel rules themselves.</p>
+        <p>The trade: with nobody outside the walls, nothing that requires an outside can work.</p>
+        <div class="traits">
+          <span class="trait on">minimal footprint</span>
+          <span class="trait on">zero runtime overhead</span>
+          <span class="trait off">proxy</span>
+          <span class="trait off">rollback</span>
+          <span class="trait off">elevation prompts</span>
+          <span class="trait off">diagnostic footer</span>
+        </div>
+      </div>
+
+      <div class="strat">
+        <span class="cmd">$ nono run --profile node-dev -- claude</span>
+        <h3>Supervised <span>fork, then sandbox the child</span></h3>
+        <p>The default for agent work. The parent stays outside as a hardened supervisor; only the child is confined. <b>Everything interactive and forensic lives here</b>: the network proxy, rollback snapshots, "allow this file?" prompts, and the post-run explanation of every denial.</p>
+        <p>The trade: one privileged process remains, so it defends itself (debugger-attachment blocked, hardening failure is fatal).</p>
+        <div class="traits">
+          <span class="trait on">proxy + credential injection</span>
+          <span class="trait on">rollback</span>
+          <span class="trait on">elevation prompts</span>
+          <span class="trait on">diagnostics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ WORKSPACE -->
+<section id="workspace">
+  <div class="wrap reveal">
+    <span class="eyebrow">07 · the workspace</span>
+    <h2>Four crates, one kernel of truth</h2>
+    <p class="lede">The Cargo workspace mirrors the architecture: everything depends on the <strong>nono</strong> library; the library depends on none of them.</p>
+
+    <figure class="crate-fig">
+      <svg viewBox="0 0 900 430" role="img" aria-label="Dependency graph: nono-cli depends on nono-proxy and on the nono library; nono-proxy and nono-ffi also depend on the nono library. The nono library depends on nothing else in the workspace.">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#6f7a92"/>
+          </marker>
+        </defs>
+
+        <!-- edges -->
+        <g stroke="#6f7a92" stroke-width="1.8" fill="none">
+          <path d="M170,150 L170,240" marker-end="url(#arr)"/>          <!-- cli -> proxy -->
+          <path d="M255,132 C 360,180 400,220 438,268" marker-end="url(#arr)"/> <!-- cli -> nono -->
+          <path d="M262,290 L370,300" marker-end="url(#arr)"/>          <!-- proxy -> nono -->
+          <path d="M735,150 C 700,210 620,260 565,282" marker-end="url(#arr)"/> <!-- ffi -> nono -->
+        </g>
+
+        <!-- nono-cli -->
+        <g>
+          <rect x="60" y="60" width="220" height="90" rx="12" fill="#ffffff" stroke="#e8a13d" stroke-width="2"/>
+          <text x="80" y="92" font-family="ui-monospace, Menlo, monospace" font-size="17" font-weight="700" fill="#23252e">nono-cli</text>
+          <text x="80" y="114" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">the product: policy, profiles,</text>
+          <text x="80" y="131" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">packs, strategies, UX</text>
+        </g>
+
+        <!-- nono-proxy -->
+        <g>
+          <rect x="60" y="245" width="200" height="90" rx="12" fill="#ffffff" stroke="#5558d9" stroke-width="2"/>
+          <text x="80" y="277" font-family="ui-monospace, Menlo, monospace" font-size="17" font-weight="700" fill="#23252e">nono-proxy</text>
+          <text x="80" y="299" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">network filter, credential</text>
+          <text x="80" y="316" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">injection, TLS intercept</text>
+        </g>
+
+        <!-- nono-ffi -->
+        <g>
+          <rect x="640" y="60" width="200" height="90" rx="12" fill="#ffffff" stroke="#6f7a92" stroke-width="2"/>
+          <text x="660" y="92" font-family="ui-monospace, Menlo, monospace" font-size="17" font-weight="700" fill="#23252e">nono-ffi</text>
+          <text x="660" y="114" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">C ABI + generated header:</text>
+          <text x="660" y="131" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">embed the primitive anywhere</text>
+        </g>
+
+        <!-- nono lib -->
+        <g>
+          <rect x="375" y="255" width="250" height="120" rx="14" fill="#eeeefb" stroke="#5558d9" stroke-width="3"/>
+          <text x="400" y="292" font-family="ui-monospace, Menlo, monospace" font-size="19" font-weight="700" fill="#23252e">nono</text>
+          <text x="400" y="314" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">the library: capabilities, sandbox,</text>
+          <text x="400" y="331" font-family="system-ui, sans-serif" font-size="12.5" fill="#565a68">state, query, keystore, undo</text>
+          <text x="400" y="357" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#5558d9">POLICY-FREE · DEPENDS ON NOTHING HERE</text>
+        </g>
+
+        <!-- edge labels -->
+        <g font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#6f7a92">
+          <text x="182" y="205">runs in supervisor</text>
+          <text x="330" y="180">builds &amp; applies</text>
+          <text x="660" y="230">re-exports the contract</text>
+        </g>
+      </svg>
+      <figcaption>arrows read "depends on"; trust and reuse both flow toward the library</figcaption>
+    </figure>
+
+    <p class="prose">This shape is a guarantee, not a convenience: because the library cannot see the CLI, no policy can leak downward into the primitive, and anyone embedding <code>nono</code> (via Rust or the C FFI) starts from a genuinely neutral mechanism.</p>
+  </div>
+</section>
+
+<!-- ================================================================ SUBSYSTEMS -->
+<section id="subsystems" style="background: var(--paper-2);">
+  <div class="wrap reveal">
+    <span class="eyebrow">08 · the supporting cast</span>
+    <h2>Subsystems around the sandbox</h2>
+    <p class="lede">The sandbox says <span class="k k-denied">no</span>. These subsystems make that livable: recover from damage, reach the network safely, share policy, keep secrets secret, and understand every refusal.</p>
+
+    <div class="sub-grid">
+
+      <div class="sub-card">
+        <span class="sub-tag">undo / rollback</span>
+        <h3>A time machine for the workspace</h3>
+        <p>Before the agent runs, every tracked file's content is hashed into a <b>content-addressed object store</b>, and a <b>Merkle tree</b> pins the entire workspace under a single root hash. After the run, a second pass shows exactly what changed; and can put it all back, atomically.</p>
+        <div class="mini-roll" aria-hidden="true">
+          <span class="m-node snap">baseline &#x2318;a41f</span>
+          <span class="m-arrow">&#8594;</span>
+          <span class="m-node">agent runs&#8230;</span>
+          <span class="m-arrow">&#8594;</span>
+          <span class="m-node snap">diff &#x2318;9c02</span>
+          <span class="m-arrow">&#8594;</span>
+          <span class="m-node">restore ?</span>
+        </div>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p><b>Content addressing</b> means identical content is stored once, snapshots are cheap, and corruption is self-evident: re-hash an object and compare. The Merkle root turns "is anything different?" into one comparison.</p>
+            <p><b>Exclusions</b> keep VCS directories (<code>.git</code> and friends) and user-configured globs out of tracking, so a restore never fights your version control. Editor atomic-save temp files are tracked separately so restores don't leave orphans behind.</p>
+            <p>The primitives (object store, Merkle tree, snapshot manager, exclusion filter) live in the <b>library</b>; the CLI owns the lifecycle: when to snapshot, how sessions are browsed, and the interactive restore.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="sub-card">
+        <span class="sub-tag">network proxy</span>
+        <h3>One door to the internet, with a guard</h3>
+        <p>Under network policy, the sandbox allows exactly one destination: <b>loopback, one port</b>; where the proxy listens inside the supervisor. Every request the agent makes must walk past it.</p>
+        <div class="mini-proxy" aria-hidden="true">
+          <span class="m-node m-agent">agent</span>
+          <span class="m-arrow">&#8594;</span>
+          <span class="m-node m-proxy">proxy :8888</span>
+          <span class="m-arrow">&#8594;</span>
+          <span class="m-node m-net">api.github.com &#10003;</span>
+          <span class="m-arrow">/</span>
+          <span class="m-node m-deny">metadata svc &#10005;</span>
+        </div>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p><b>Host filtering</b>: HTTPS tunnels are checked against your allowlist plus a built-in denylist (cloud metadata endpoints and similar). <b>Corporate proxies</b> can be chained behind it; nono's denylist still applies as a floor.</p>
+            <p><b>Credential injection</b>: the agent calls a local route with no real secret; the proxy attaches the actual API key (or signs the request, e.g. AWS SigV4) on the way out. A leaked agent environment leaks nothing usable.</p>
+            <p><b>TLS interception</b>, when domain-level rules require reading inside HTTPS, uses a session-scoped CA generated per run; trusted only by that sandbox, discarded afterwards.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="sub-card">
+        <span class="sub-tag">packs &amp; trust</span>
+        <h3>Policy you can install, but not be fooled by</h3>
+        <p>Profiles travel as <b>packs</b> pulled from a registry. Because a pack literally decides what an agent may touch, packs are signed and verified before use.</p>
+        <div class="trust-modes">
+          <div class="trust-mode"><span class="tm keyless">keyless</span><span>the default: Sigstore certificate transparency, verified against the public trusted root.</span></div>
+          <div class="trust-mode"><span class="tm keyed">keyed</span><span>your own ECDSA P-256 key, for internal or air-gapped registries; no public infrastructure phoned.</span></div>
+          <div class="trust-mode"><span class="tm unsigned">unsigned</span><span>checksum only; requires an explicit <code>--insecure</code> flag and warns loudly.</span></div>
+        </div>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p><b>No silent downgrade</b>: once a trusted key is configured, nothing (not a flag file, not an environment variable) can quietly drop verification; only the explicit insecure flag can, and it announces itself.</p>
+            <p><b>Trust is graded by origin</b>: escape hatches like raw Seatbelt rules are honored only in profiles <em>you</em> wrote; any pack or registry profile has them stripped before use, because such a rule can grant anything.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="sub-card">
+        <span class="sub-tag">secrets</span>
+        <h3>Credentials as references, never values</h3>
+        <p>A profile names secrets by <b>reference</b>; <code>op://</code>, <code>keyring://</code>, <code>apple-password://</code>, <code>env:</code>, <code>file:</code>, <code>cmd:</code>; resolved outside the sandbox at launch and injected as environment variables. No secret ever appears on a command line or in a log.</p>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p><b>In memory</b>, values live in zeroizing wrappers: wiped when dropped, not left for a core dump. <b>In output</b>, every scheme has a redacted form, so diagnostics can mention <em>which</em> credential without ever showing it.</p>
+            <p>Combined with the proxy's injection mode, the agent can be given a placeholder while the real credential exists only inside the supervisor; the strongest posture for untrusted code, detailed below in <a href="#phantom">the phantom token pattern</a>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="sub-wide" id="phantom">
+        <span class="sub-tag">secrets &#215; proxy &#183; the strongest posture</span>
+        <h3>The phantom token pattern</h3>
+        <p>Injecting a secret as an environment variable is good hygiene, but the secret still <em>lives inside</em> the sandbox; an agent that can read its own environment can leak it. The phantom token pattern removes the secret from the sandbox entirely: the agent holds a <b>session-scoped decoy</b>, and the swap for the real credential happens in the supervisor, on the way out.</p>
+
+        <figure class="pt-fig">
+          <svg viewBox="0 0 920 330" role="img" aria-label="Inside the sandbox, the agent holds only a phantom token and a loopback URL. Its request crosses the wall to the proxy in the supervisor, which validates the phantom token, swaps in the real credential resolved from the keystore, and forwards to the real API. A direct connection attempt to an exfiltration host is blocked by the kernel, and a proxied attempt is blocked by the host filter.">
+            <defs>
+              <marker id="pt-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#9aa0b2"/>
+              </marker>
+              <marker id="pt-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#2fa26e"/>
+              </marker>
+            </defs>
+
+            <!-- sandbox room -->
+            <rect x="20" y="40" width="300" height="250" rx="14" fill="#1d2029" stroke="#3a3f52" stroke-width="6"/>
+            <text x="44" y="68" fill="#6f7a92" font-family="ui-monospace, Menlo, monospace" font-size="11" letter-spacing="2">SANDBOX</text>
+
+            <!-- agent chip -->
+            <rect x="60" y="84" width="220" height="50" rx="10" fill="#2a2313" stroke="#e8a13d" stroke-width="1.5"/>
+            <text x="170" y="114" text-anchor="middle" fill="#e8a13d" font-family="ui-monospace, Menlo, monospace" font-size="14" font-weight="700">AI agent</text>
+
+            <!-- agent env -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="11">
+              <text x="60" y="168" fill="#9aa0b2">BASE_URL = http://127.0.0.1:8888</text>
+              <text x="60" y="188" fill="#e8a13d">API_KEY&#160;&#160;= nono-tok-4f2a91&#8230;</text>
+              <text x="60" y="206" fill="#e8a13d" opacity=".75">&#8593; phantom &#183; worthless outside this run</text>
+            </g>
+
+            <!-- door in the wall -->
+            <rect x="311" y="150" width="16" height="40" rx="4" fill="#7a7df0"/>
+            <text x="319" y="212" text-anchor="middle" fill="#7a7df0" font-family="ui-monospace, Menlo, monospace" font-size="10.5">:8888</text>
+
+            <!-- supervisor zone -->
+            <rect x="362" y="40" width="278" height="250" rx="14" fill="#1d2029" stroke="#7a7df0" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <text x="384" y="68" fill="#7a7df0" font-family="ui-monospace, Menlo, monospace" font-size="11" letter-spacing="2">SUPERVISOR &#183; OUTSIDE THE WALLS</text>
+
+            <!-- keystore chip -->
+            <rect x="392" y="84" width="218" height="42" rx="10" fill="#16281f" stroke="#2fa26e" stroke-width="1.5"/>
+            <text x="501" y="103" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="11">op://vault/openai</text>
+            <text x="501" y="118" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="11">&#8594; sk-live-9xk2&#8230; &#128273;</text>
+
+            <!-- keystore -> proxy -->
+            <line x1="501" y1="126" x2="501" y2="146" stroke="#2fa26e" stroke-width="1.5" marker-end="url(#pt-arr-g)"/>
+
+            <!-- proxy box -->
+            <rect x="392" y="150" width="218" height="50" rx="10" fill="#232735" stroke="#7a7df0" stroke-width="1.5"/>
+            <text x="501" y="171" text-anchor="middle" fill="#e8e9ee" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700">proxy</text>
+            <text x="501" y="188" text-anchor="middle" fill="#9aa0b2" font-family="ui-monospace, Menlo, monospace" font-size="10.5">validate phantom &#183; swap &#183; filter</text>
+
+            <!-- agent -> proxy -->
+            <line x1="284" y1="170" x2="388" y2="170" stroke="#9aa0b2" stroke-width="1.8" marker-end="url(#pt-arr)"/>
+            <text x="336" y="146" text-anchor="middle" fill="#e8a13d" font-family="ui-monospace, Menlo, monospace" font-size="10.5">Authorization:</text>
+            <text x="336" y="160" text-anchor="middle" fill="#e8a13d" font-family="ui-monospace, Menlo, monospace" font-size="10.5">nono-tok&#8230;</text>
+
+            <!-- proxy -> api -->
+            <line x1="610" y1="170" x2="736" y2="170" stroke="#2fa26e" stroke-width="1.8" marker-end="url(#pt-arr-g)"/>
+            <text x="673" y="146" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="10.5">Authorization:</text>
+            <text x="673" y="160" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="10.5">sk-live-9xk2&#8230; (real)</text>
+
+            <!-- api box -->
+            <rect x="740" y="145" width="160" height="50" rx="10" fill="#16281f" stroke="#2fa26e" stroke-width="1.5"/>
+            <text x="820" y="168" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="12">api.openai.com</text>
+            <text x="820" y="185" text-anchor="middle" fill="#2fa26e" font-family="ui-monospace, Menlo, monospace" font-size="12">&#10003;</text>
+
+            <!-- exfil box -->
+            <rect x="740" y="240" width="160" height="44" rx="10" fill="#2a171a" stroke="#d64550" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="820" y="260" text-anchor="middle" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="12">evil.exfil.example</text>
+            <text x="820" y="276" text-anchor="middle" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="12">&#10005;</text>
+
+            <!-- red path 1: direct connect, blocked at the wall -->
+            <line x1="240" y1="240" x2="312" y2="252" stroke="#d64550" stroke-width="1.5" stroke-dasharray="4 5"/>
+            <text x="322" y="258" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700">&#10005;</text>
+            <text x="60" y="244" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="10.5">direct connect</text>
+            <text x="60" y="258" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="10.5">&#8594; blocked by kernel</text>
+
+            <!-- red path 2: via proxy, blocked by host filter -->
+            <line x1="610" y1="192" x2="736" y2="252" stroke="#d64550" stroke-width="1.5" stroke-dasharray="4 5"/>
+            <text x="660" y="238" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="10.5">host not in allowlist</text>
+            <text x="660" y="252" fill="#d64550" font-family="ui-monospace, Menlo, monospace" font-size="10.5">&#8594; refused by proxy</text>
+          </svg>
+          <figcaption>the real key exists only to the right of the wall; both exfiltration paths die, each at a different layer</figcaption>
+        </figure>
+
+        <div class="pt-steps">
+          <div class="pt-step">
+            <span class="n">1 &#183; resolve outside</span>
+            <p>At launch, the supervisor resolves credential references (<b>op://</b>, <b>keyring://</b>&#8230;) into memory. The real key is born outside the walls and never crosses them.</p>
+          </div>
+          <div class="pt-step">
+            <span class="n">2 &#183; hand out a decoy</span>
+            <p>The agent's environment gets a <b>phantom token</b> and a loopback base URL. To the agent's SDK it looks exactly like a normal API key; it authenticates only to this session's proxy.</p>
+          </div>
+          <div class="pt-step">
+            <span class="n">3 &#183; swap at the door</span>
+            <p>On every request, the proxy validates the phantom, <b>replaces it with the real credential</b>, and forwards. It can even sign outbound requests (OAuth2 refresh, AWS SigV4) so no long-lived key exists on the wire at all.</p>
+          </div>
+          <div class="pt-step">
+            <span class="n">4 &#183; compromise is a shrug</span>
+            <p>Assume the worst: prompt injection wins, the agent dumps its whole environment to an attacker. They get a token that is <b>invalid outside this session's loopback</b> and dies when the run ends. There was nothing to steal.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <span class="sub-tag">diagnostics</span>
+        <h3>Every "no" comes with an explanation</h3>
+        <p>Denials aren't silent failures. The supervisor records each one, and when the run ends it prints a footer: <b>what was blocked, why, and the exact flag or grant</b> that would allow it next time. Iterating on a profile is a feedback loop, not archaeology.</p>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p><b><code>nono why</code></b> answers permission questions without running anything, by replaying a saved capability state through the same resolution logic the sandbox used; grant-time and query-time can never disagree.</p>
+            <p><b>Learning from denials</b> closes the loop: the grants a run was missing can be saved straight back into the profile you ran with.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="sub-card">
+        <span class="sub-tag">c ffi</span>
+        <h3>The primitive, embeddable anywhere</h3>
+        <p>A C ABI with a generated header exposes the library's contract; build a capability set, apply the sandbox, query permissions, serialize state, read diagnostics; to any language that can call C.</p>
+        <details>
+          <summary>go deeper</summary>
+          <div>
+            <p>The surface is deliberately the <b>mechanism half only</b>: none of the CLI's profiles, packs, proxy, or policy groups cross the boundary. An embedder gets the same neutral primitive the CLI itself builds on, and brings their own policy.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ INVARIANTS -->
+<section id="invariants" class="dark">
+  <div class="wrap reveal">
+    <span class="eyebrow">09 · security invariants</span>
+    <h2>Rules the codebase refuses to break</h2>
+    <p class="lede">These are not guidelines; they are properties every change is checked against. If a feature can't be built without bending one, the feature loses.</p>
+
+    <div class="inv-grid">
+      <div class="inv">
+        <h3>Irreversible by design</h3>
+        <p>No API widens a live sandbox. Expansion exists only through <b>mediated channels</b>: an interactive elevation prompt answered by the supervisor, or a macOS extension token for one specific path. Never silently.</p>
+      </div>
+      <div class="inv">
+        <h3>Fail secure, always</h3>
+        <p>If a rule can't be enforced exactly as asked; old kernel, missing feature, unloadable config; nono <b>errors out instead of running weaker</b>. There is no "best effort" mode for security.</p>
+      </div>
+      <div class="inv">
+        <h3>Canonicalize at the boundary</h3>
+        <p>Paths are resolved and existence-checked <b>when granted</b>, and re-validated whenever stored state is reloaded. Symlink swaps, alias faces like <code>/etc</code> vs <code>/private/etc</code>, and string-prefix tricks all die here.</p>
+      </div>
+      <div class="inv">
+        <h3>Deny is the default state</h3>
+        <p>A capability that isn't granted doesn't exist. Groups grant minimally, read and write are separate decisions, and <b>nono's own state directory can never be granted</b>; the agent cannot rewrite its own history or its jailer's memory.</p>
+      </div>
+      <div class="inv">
+        <h3>Mechanism carries no policy</h3>
+        <p>The library applies exactly the CapabilitySet it is given. Every opinion; deny lists, dangerous commands, profiles; lives in the CLI, <b>where it is data you can read and audit</b>.</p>
+      </div>
+      <div class="inv">
+        <h3>The supervisor guards itself</h3>
+        <p>The one process left outside the walls blocks debugger attachment <b>the instant it forks</b>, and treats failure to harden as fatal: kill the child, abort the run.</p>
+      </div>
+      <div class="inv">
+        <h3>Secrets are references</h3>
+        <p>Credentials resolve in memory, zeroize on drop, and appear in logs only in redacted form. With proxy injection, the real value <b>never enters the sandbox at all</b>.</p>
+      </div>
+      <div class="inv">
+        <h3>Escape hatches are personal</h3>
+        <p>Raw platform rules can grant anything, so they are honored <b>only from profiles you authored yourself</b>. Anything installed from a pack or registry gets them stripped before use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ RECAP -->
+<section class="recap">
+  <div class="wrap reveal">
+    <span class="eyebrow">10 · the whole model in one line</span>
+    <div class="mantra">
+      <span class="m-cli">The CLI decides.</span><br>
+      <span class="m-lib">The library builds.</span><br>
+      <span class="m-kernel">The kernel enforces, irreversibly.</span>
+    </div>
+    <p>Hold onto that, plus one image: an agent in a sealed room where every door was placed on purpose. Everything else in nono; profiles, packs, the proxy, rollback, diagnostics; exists either to choose those doors well, or to live gracefully with the walls.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>nono &#183; architecture field guide</span>
+    <span>single file &#183; no external assets &#183; interactivity is CSS + &lt;details&gt; only</span>
+  </div>
+</footer>
+
+</body>
+</html>
