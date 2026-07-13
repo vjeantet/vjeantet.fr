@@ -26,6 +26,7 @@ keywords = "blog, security, golang, hugo, devops"
 favicon = "/images/logo.png"
 mainSections = ["post"]
 defer_custom_js = ["/js/netlify-identity.js"]
+customJS = ["js/daily-color.js"]
 
 [[params.social]]
 name = "GitHub"
