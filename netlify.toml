@@ -1,0 +1,16 @@
+# Explicit Hugo configuration so Netlify does not try to guess the framework.
+# Both Hugo and Zola use a root config.toml, which made Netlify's autodetection
+# ambiguous ("Multiple possible dev commands found: Hugo, Zola").
+
+[build]
+  publish = "public"
+  command = "hugo --gc --minify"
+
+[build.environment]
+  HUGO_VERSION = "0.164.0"
+
+# Force the local/preview dev server to use Hugo instead of autodetecting.
+[dev]
+  framework = "#custom"
+  command = "hugo server"
+  targetPort = 1313
