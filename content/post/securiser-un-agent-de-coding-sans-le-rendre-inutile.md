@@ -12,9 +12,9 @@ Les agents de coding (Claude Code notamment) déplacent le problème : la menace
 
 Depuis peu, j'accompagne leur déploiement en environnement d'entreprise. Les apprentissages sont autant organisationnels et méthodologiques que techniques : gouvernance, responsabilités, façon de travailler des équipes ; c'est un autre sujet, au moins aussi riche.
 
-Je partage ici un enseignement purement cyber/technique.
+Je partage ici un petit enseignement purement cyber/technique.
 
-Un dilemme se pose trés vite car pour être utile, un agent a besoin d'accès larges. Fichiers, shell, réseau; Et avec ces accès des risques **non négligeables** :
+Lors du déploiement aux acteurs IT, un dilemme se pose trés vite car pour être utile, un agent a besoin d'accès larges. Fichiers, shell, réseau; Et avec ces accès des risques **non négligeables** :
 
 - exfiltration de secrets (.ssh, .aws, .env) : lecture disque + accès réseau, rien de plus ;
 - prompt injection : une issue GitHub piégée suffit à détourner un agent « obéissant » ;
