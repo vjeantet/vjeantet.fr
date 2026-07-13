@@ -28,7 +28,7 @@ La suite logique, c'est la nano-segmentation : appliquer au processus ce que la 
 
 Un firewall au niveau du processus : l'agent garde son autonomie, le périmètre n'est plus négociable.
 
-J'ai produit un guide visuel de l'architecture pour vous permettre d'avoir rapidement le modele mentale de l'outil (capabilities, cycle de vie d'un run, proxy réseau, rollback) :  [english version](/nono-guide-visuel/)
+J'ai produit un [guide visuel de l'architecture](/nono-visual-architecture/) pour vous permettre d'avoir rapidement le modele mentale de l'outil (capabilities, cycle de vie d'un run, proxy réseau, rollback) :  
 
 Le projet : [github.com/nolabs-ai/nono](https://github.com/nolabs-ai/nono)
 
