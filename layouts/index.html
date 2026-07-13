@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="site-description">
+	{{- if isset .Site.Params "subtitle" -}}
+	<p>{{ .Site.Params.Subtitle | .Page.RenderString }}</p>
+	{{- end -}}
+</div>
+
+<h1 class="page-title">All articles</h1>
+
+<ul class="posts">
+	{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+	{{- range where $pages "Params.hidden" "ne" true -}}
+	<li class="post">
+		<a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="meta">{{ dateFormat ":date_medium" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span>{{ end }}</span>
+	</li>
+	{{- end -}}
+</ul>
+{{ end }}
