@@ -1,52 +1,58 @@
-baseurl = "http://vjeantet.fr/"
-copyright = "All rights reserved"
-locale = "fr-FR"
+baseURL = "http://vjeantet.fr/"
+languageCode = "fr-FR"
 defaultContentLanguage = "fr"
-pluralizelisttitles = false
-theme = "hugo-paper"
 title = "Valère JEANTET"
-enableInlineShortcodes = true
+theme = "github-style"
+copyright = "All rights reserved"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+pluralizelisttitles = false
 
 [pagination]
-pagerSize = 5
+pagerSize = 10
 
-[[menu.main]]
-identifier = "blog"
-name = "Blog"
-url = "/"
-weight = -120
-[[menu.main]]
-name = "About"
-url = "/about/"
-weight = 10
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 [params]
-env = "production"
 author = "Valère JEANTET"
-name = "Valère JEANTET"
-bio = "IT software and Security Engineer, Open source enthusiast."
-description = "Whatever the mind of man can conceive and believe, it can achieve."
-avatar = "https://vjeantet.fr/images/logo.png"
-color = "light"
-mainSections = ["post"]
+description = "IT software and Security Engineer, Open source enthusiast."
+keywords = "blog, security, golang, hugo, devops"
 github = "vjeantet"
 twitter = "vjeantet"
-mastodon = "https://hachyderm.io/@vjeantet"
+email = "valere.jeantet@gmail.com"
+url = "http://vjeantet.fr"
+avatar = "/images/logo.png"
+headerIcon = "/images/github-mark-white.png"
+favicon = "/images/logo.png"
+location = "Paris, France"
+rss = true
+lastmod = true
+enableSearch = true
+defer_custom_js = ["/js/netlify-identity.js"]
+
+[[params.links]]
+title = "Mastodon"
+href = "https://hachyderm.io/@vjeantet"
+icon = "/images/mastodon.png"
+
+[[params.links]]
+title = "Keybase (secure msg)"
+href = "https://keybase.io/vjeantet"
+
+[frontmatter]
+lastmod = ["lastmod", ":fileModTime", ":default"]
+
+[taxonomies]
+tag = "tags"
 
 [markup]
 [markup.goldmark]
 [markup.goldmark.renderer]
 unsafe = true
 
-[taxonomies]
-tag = "tags"
-
 [permalinks]
 post = "/:slug/"
-
-[services]
-[services.disqus]
-shortname = "vjeantet"
 
 [sitemap]
 ChangeFreq = ""
