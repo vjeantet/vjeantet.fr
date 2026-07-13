@@ -1,6 +1,6 @@
 baseurl = "http://vjeantet.fr/"
 copyright = "All rights reserved"
-languagecode = "fr-FR"
+locale = "fr-FR"
 defaultContentLanguage = "fr"
 pluralizelisttitles = false
 theme = "hugo-paper"
