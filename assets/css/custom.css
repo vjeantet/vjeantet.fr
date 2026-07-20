@@ -1,0 +1,31 @@
+/* Encadré TL;DR / résumé en tête d'article */
+.tldr {
+  border-inline-start: 4px solid var(--color-primary, #dc143c);
+  background: rgba(220, 20, 60, 0.06);
+  padding: 0.85em 1.15em;
+  margin: 1.6em 0 2.2em;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.97em;
+  line-height: 1.6;
+}
+
+.tldr p {
+  margin: 0;
+}
+
+.tldr .tldr-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-primary, #dc143c);
+}
+
+/* Déclinaison dark (mode = "auto", suit prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+  .tldr {
+    border-inline-start-color: var(--color-primary-dark, #50fa7b);
+    background: rgba(80, 250, 123, 0.08);
+  }
+  .tldr .tldr-label {
+    color: var(--color-primary-dark, #50fa7b);
+  }
+}
