@@ -8,11 +8,7 @@ tags: ["GenAI", "DevSecOps", "compétences", "IA"]
 
 <div class="tldr">
 
-<span class="tldr-label">TL;DR</span> L'œil qui contrôle le code généré n'est pas une compétence à part : c'est un dépôt laissé par des années de code écrit, cassé, réparé à la main. En automatisant d'abord les tâches ingrates - celles qui justement formaient ce dépôt - on garde les superviseurs d'aujourd'hui mais on cesse d'en fabriquer. Le problème n'est pas la machine, c'est le dispositif : sans zones manuelles, incidents-écoles et budget de formation assumés, il ne restera bientôt plus personne pour voir ce qu'aucun référentiel ne liste.
-
-</div>
-
-Je lisais cette semaine un tweet sur le changement de nature du logiciel. Une phrase m'est restée :
+Je lisais cette semaine plusieurs papiers sur le changement de nature du logiciel. Une phrase m'est restée :
 
 > « Ai-je écrit la bonne ligne ? » devient « ai-je vérifié ce que la machine a produit ? »
 
