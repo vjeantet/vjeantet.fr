@@ -6,8 +6,6 @@ draft: false
 tags: ["GenAI", "DevSecOps", "compétences", "IA"]
 ---
 
-<div class="tldr">
-
 Je lisais cette semaine plusieurs papiers sur le changement de nature du logiciel. Une phrase m'est restée :
 
 > « Ai-je écrit la bonne ligne ? » devient « ai-je vérifié ce que la machine a produit ? »
@@ -74,4 +72,4 @@ Le talent se déplace, dit-on. Il se déplace, oui, à condition qu'on lui laiss
 
 *PS : la même question vaut pour la CyberSécurité ! Auditer un comportement généré demande d'avoir soi-même écrit, cassé et réparé. La conformité exigera de la traçabilité ; elle ne fabriquera pas les gens capables de la lire.*
 
-#GenAI #compétences #DevSecOps #IA
+
