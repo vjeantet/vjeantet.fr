@@ -1,0 +1,6 @@
+# French UI strings for project-level layout overrides.
+# NB: the archie theme itself does not call the i18n function (its labels are
+# hard-coded in English); these keys are consumed only by files in layouts/.
+
+[all_articles]
+other = "Tous les articles"
