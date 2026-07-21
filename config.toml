@@ -1,5 +1,4 @@
 baseURL = "http://vjeantet.fr/"
-languageCode = "fr-FR"
 defaultContentLanguage = "fr"
 title = "Valère JEANTET"
 theme = "archie"
@@ -20,9 +19,6 @@ home = ["HTML", "RSS"]
 mode = "auto"
 useCDN = false
 author = "Valère JEANTET"
-subtitle = "IT software and Security Engineer, Open source enthusiast."
-description = "IT software and Security Engineer, Open source enthusiast."
-keywords = "blog, security, golang, hugo, devops"
 favicon = "/images/logo.png"
 mainSections = ["post"]
 defer_custom_js = ["/js/netlify-identity.js"]
@@ -49,20 +45,57 @@ name = "Signal (secure msg)"
 icon = "simple:signal"
 url = "https://signal.me/#eu/8vo6HxU6m15mccSy0_302yOQPGylFau5F0euYupiRNM45-d6xUhC7oKs1F0g4IzV"
 
-[[menu.main]]
-name = "Home"
-url = "/"
-weight = 1
+# --- Multilingual setup -------------------------------------------------------
+# French (default) is served at the site root; English is served under /en/.
+# Posts are translated by filename: e.g. my-post.fr.md + my-post.en.md, both
+# living in content/post/. Files without a language suffix are treated as French.
+[languages]
+  [languages.fr]
+    languageCode = "fr-FR"
+    languageName = "Français"
+    title = "Valère JEANTET"
+    weight = 1
+    [languages.fr.params]
+      subtitle = "IT software and Security Engineer, Open source enthusiast."
+      description = "IT software and Security Engineer, Open source enthusiast."
+      keywords = "blog, security, golang, hugo, devops"
+    [[languages.fr.menu.main]]
+      name = "Home"
+      url = "/"
+      weight = 1
+    [[languages.fr.menu.main]]
+      name = "About"
+      url = "/about/"
+      weight = 4
+    [[languages.fr.menu.main]]
+      name = "Tags"
+      url = "/tags/"
+      weight = 5
 
-[[menu.main]]
-name = "About"
-url = "/about/"
-weight = 4
-
-[[menu.main]]
-name = "Tags"
-url = "/tags/"
-weight = 5
+  [languages.en]
+    languageCode = "en-US"
+    languageName = "English"
+    title = "Valère JEANTET"
+    weight = 2
+    [languages.en.params]
+      subtitle = "IT software and Security Engineer, Open source enthusiast."
+      description = "IT software and Security Engineer, Open source enthusiast."
+      keywords = "blog, security, golang, hugo, devops"
+    [[languages.en.menu.main]]
+      name = "Home"
+      url = "/en/"
+      weight = 1
+    # The About page has no English translation yet, so this points at the
+    # shared /about/ page. Change to "/en/about/" once content/about.en.md exists.
+    [[languages.en.menu.main]]
+      name = "About"
+      url = "/about/"
+      weight = 4
+    [[languages.en.menu.main]]
+      name = "Tags"
+      url = "/en/tags/"
+      weight = 5
+# ------------------------------------------------------------------------------
 
 [security]
 allowContent = ['^text/']
