@@ -5,7 +5,7 @@
 	{{- end -}}
 </div>
 
-<h1 class="page-title">All articles</h1>
+<h1 class="page-title">{{ i18n "all_articles" }}</h1>
 
 <ul class="posts">
 	{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
