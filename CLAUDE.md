@@ -24,6 +24,17 @@ git submodule update --init   # Fetch the theme (required after fresh clone)
 - `layouts/partials/netlify.html` - custom footer partial (wired via `params.customFooterPartial`) that loads the Netlify Identity widget and redirects logged-in users to `/admin/`.
 - `static/` - files copied verbatim into the site root. `static/app.yaml` is a legacy Google App Engine config; deployment is now Netlify.
 - `_prose.yml` - config for the prose.io web editor (content root, media dir).
+- `i18n/` - UI strings (`fr.toml`, `en.toml`) consumed by project-level `layouts/` overrides. The archie theme itself hard-codes its labels in English and does not call the `i18n` function.
+
+## Multilingual (FR + EN)
+
+The site is bilingual via Hugo's native multilingual support, configured under `[languages]` in `config.toml`:
+
+- **French is the default** and served at the site root (`/mon-post/`); **English is served under `/en/`** (`/en/my-post/`). `defaultContentLanguageInSubdir` is intentionally left off so existing French URLs never change.
+- **Translation is by filename.** A translated post is a pair sharing the same base name: `my-post.fr.md` + `my-post.en.md`, both in `content/post/`. Hugo pairs them automatically. Files with **no** language suffix (e.g. `about.md`) are treated as French.
+- Each language has its own `params` (subtitle/description/keywords) and its own `[[menu.main]]` entries in `config.toml`.
+- The language switcher lives in `layouts/partials/head.html` (an override of the theme's nav partial): it links to the current page's translation via `.Translations`, falling back to the other language's home page when the page isn't translated.
+- Example translated post: `content/post/l-oeil-est-un-sediment-de-la-main.{fr,en}.md`.
 
 ## Notes
 
