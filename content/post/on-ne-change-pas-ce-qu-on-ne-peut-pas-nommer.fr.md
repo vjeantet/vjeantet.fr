@@ -24,4 +24,4 @@ Elle ne rate pas la transformation : elle refait l'outillage. Elle apprend à co
 Ce qui s'entraîne, c'est le cadrage. 
 Ce qui s'atrophie, c'est le jugement sur ce qui n'a pas encore de formulation, et une machine qui ne sait traiter que le déjà formulé ne nommera rien à notre place.
 
-On ne change pas ce qu'on ne peut pas nommer. C'est là que commence le travail  pas dans les outils.
+On ne change pas ce qu'on ne peut pas nommer. C'est là que commence le travail,  pas dans les outils.
