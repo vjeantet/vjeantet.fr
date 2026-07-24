@@ -1,0 +1,20 @@
+<footer>
+  <div style="display:flex">
+    {{- range $index, $key := .Site.Params.Social -}}
+    {{- if hasPrefix $key.icon "simple:" -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}"><i class="si si-{{ substr $key.icon 7 }}"></i></a>
+    {{- else -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}">{{ template "feathericon" (dict "Icon" $key.icon "UseCDN" .Site.Params.useCDN) }}</a>
+    {{- end -}}
+    <a class="border"></a>
+    {{- end -}}
+  </div>
+  <div class="footer-info">
+    {{ dateFormat "2006" now }} {{ with .Site.Copyright }} {{ . }} | {{ end }} <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+{{ if not hugo.IsServer }}
+{{ template "_internal/google_analytics.html" . }}
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6341b524-4ec0-402e-ba27-86e76fca6488"></script>
+{{ end }}
